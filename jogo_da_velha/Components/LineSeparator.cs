@@ -19,7 +19,7 @@ namespace jogo_da_velha.Components
 
 			Paint += new PaintEventHandler(LinePaint);
 
-			MaximumSize = new Size(0, 2);
+			MaximumSize = new Size(2000, 2);
 
 			MinimumSize = new Size(0, 2);
 

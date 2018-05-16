@@ -38,7 +38,7 @@
 			this.btnDirInf = new System.Windows.Forms.Button();
 			this.btnEsqInf = new System.Windows.Forms.Button();
 			this.btnStart = new System.Windows.Forms.Button();
-			this.lineSeparator1 = new jogo_da_velha.Components.LineSeparator();
+			this.lineSeparator2 = new jogo_da_velha.Components.LineSeparator();
 			this.SuspendLayout();
 			// 
 			// btnEsqSup
@@ -151,21 +151,21 @@
 			this.btnStart.UseVisualStyleBackColor = true;
 			this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
 			// 
-			// lineSeparator1
+			// lineSeparator2
 			// 
-			this.lineSeparator1.Location = new System.Drawing.Point(0, 300);
-			this.lineSeparator1.MaximumSize = new System.Drawing.Size(0, 2);
-			this.lineSeparator1.MinimumSize = new System.Drawing.Size(0, 2);
-			this.lineSeparator1.Name = "lineSeparator1";
-			this.lineSeparator1.Size = new System.Drawing.Size(311, 2);
-			this.lineSeparator1.TabIndex = 10;
+			this.lineSeparator2.Location = new System.Drawing.Point(0, 300);
+			this.lineSeparator2.MaximumSize = new System.Drawing.Size(2000, 2);
+			this.lineSeparator2.MinimumSize = new System.Drawing.Size(0, 2);
+			this.lineSeparator2.Name = "lineSeparator2";
+			this.lineSeparator2.Size = new System.Drawing.Size(312, 2);
+			this.lineSeparator2.TabIndex = 11;
 			// 
 			// Battlefield
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(310, 401);
-			this.Controls.Add(this.lineSeparator1);
+			this.Controls.Add(this.lineSeparator2);
 			this.Controls.Add(this.btnStart);
 			this.Controls.Add(this.btnEsqInf);
 			this.Controls.Add(this.btnDirInf);
@@ -198,7 +198,7 @@
         private System.Windows.Forms.Button btnDirInf;
         private System.Windows.Forms.Button btnEsqInf;
         private System.Windows.Forms.Button btnStart;
-		private Components.LineSeparator lineSeparator1;
+		private Components.LineSeparator lineSeparator2;
 	}
 }
 
