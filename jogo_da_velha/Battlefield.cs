@@ -1,4 +1,4 @@
-﻿/*
+/*
  *	Battlefield.cs
  *	Author: Lucas Cota, Carlos Alberto, Caio Souza, Gabriel Werneck
  *  Description: Game Battlefield.
@@ -17,15 +17,15 @@ namespace jogo_da_velha
 	public partial class Battlefield : Form
 	{
 		// Resources
-		private bool symbol;
 		private bool lastSymbol;
-		private bool started = false;
+		private bool playerSymbol;
+		private bool gameStarted = false;
 
 
 
 		// AudioPlayer Resources
-		private bool audioPlayer_Paused;
-		private AudioPlayer audioPlayer = new AudioPlayer(Directory.GetFiles("Soundtrack/").ToList());
+		private bool audioPaused;
+		private AudioPlayer audioPlayer; 
 
 
 
@@ -35,7 +35,14 @@ namespace jogo_da_velha
 		{
 			InitializeComponent();
 
-			audioPlayer.Stream();
+			// Initialize AudioPlayer
+			audioPlayer = new AudioPlayer(Directory.GetFiles("Music/").ToList());
+
+			// Initialize AudioPlayer Stream
+			if (!audioPlayer.Stream())
+			{
+				MediaPlayer_Label_MusicName = "Nenhuma música encontrada na pasta 'Music'."
+			}
 		}
 
 
@@ -44,13 +51,13 @@ namespace jogo_da_velha
 		// Events
 		private void btnStart_Click(object sender, EventArgs e)
 		{
-			if (!started)
+			if (!gameStarted)
 			{
 				OnSymbolSelect();
 
-				started = true;
-
 				btnStart.Text = "Reset";
+
+				gameStarted = true;
 			}
 			else
 			{
@@ -189,29 +196,29 @@ namespace jogo_da_velha
 
 			if (button.Text.Equals("X"))
 			{
-				lastSymbol = true;
 				symbol = false;
+				lastSymbol = true;
 			}
 			else
 			{
-				lastSymbol = false;
 				symbol = true;
+				lastSymbol = false;
 			}
 		}
 
 
 
 
-		// Media Player
+		// AudioPlayer
 		private void MediaPlayer_Button_PlayPause_Click(object sender, EventArgs e)
 		{
-			if (audioPlayer_Paused)
+			if (audioPaused)
 			{
 				audioPlayer.Play();
 
 				MediaPlayer_Button_PlayPause.Text = "Pause";
 
-				audioPlayer_Paused = false;
+				audioPaused = false;
 			}
 			else
 			{
@@ -219,7 +226,7 @@ namespace jogo_da_velha
 
 				MediaPlayer_Button_PlayPause.Text = "Play";
 
-				audioPlayer_Paused = true;
+				audioPaused = true;
 			}
 		}
 
@@ -238,6 +245,10 @@ namespace jogo_da_velha
 			OnVolumeChange();
 		}
 
+
+
+
+		// AudioPlayer Events
 		private void OnVolumeChange()
 		{
 			audioPlayer.SetVolume(MediaPlayer_TrackBar_Volume.Value);
