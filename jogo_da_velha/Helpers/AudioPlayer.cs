@@ -1,4 +1,4 @@
-﻿/*
+/*
  *	AudioPlayer.cs
  *	Author: Lucas Cota
  *  Description: Audio Streamer.
@@ -29,11 +29,14 @@ namespace jogo_da_velha.Helpers
 			this.audioPlaylist = new Queue<string>(audioPlaylist);
 		}
 
-		public void Stream()
+
+
+
+		public bool Stream()
 		{
 			if (audioPlaylist.Count < 1)
 			{
-				return;
+				return false;
 			}
 
 			if (waveStream != null)
@@ -57,6 +60,8 @@ namespace jogo_da_velha.Helpers
 			audioPlayer.Init(waveStream);
 			audioPlayer.PlaybackStopped += (sender, evn) => { Stream(); };
 			audioPlayer.Play();
+
+			return true;
 		}
 
 		public void Play()
