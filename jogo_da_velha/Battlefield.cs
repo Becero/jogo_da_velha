@@ -5,7 +5,9 @@ namespace jogo_da_velha
 {
 	public partial class Battlefield : Form
 	{
+        // true - 'X'   false - 'Y'
 		private bool symbol;
+        private bool lastSymbol;
 		private bool started = false;
 
 		public Battlefield()
@@ -148,6 +150,17 @@ namespace jogo_da_velha
 
 				button.Enabled = false;
 			}
+
+            if (button.Text.Equals("X"))
+            {
+                lastSymbol = true;
+                symbol = false;
+            }
+            else
+            {
+                lastSymbol = false;
+                symbol = true;
+            }
 		}
 
 
