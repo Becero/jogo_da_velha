@@ -38,13 +38,14 @@
 			this.btnDirInf = new System.Windows.Forms.Button();
 			this.btnEsqInf = new System.Windows.Forms.Button();
 			this.btnStart = new System.Windows.Forms.Button();
+			this.lineSeparator1 = new jogo_da_velha.Components.LineSeparator();
 			this.SuspendLayout();
 			// 
 			// btnEsqSup
 			// 
 			this.btnEsqSup.Enabled = false;
 			this.btnEsqSup.Location = new System.Drawing.Point(72, 28);
-			this.btnEsqSup.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnEsqSup.Margin = new System.Windows.Forms.Padding(2);
 			this.btnEsqSup.Name = "btnEsqSup";
 			this.btnEsqSup.Size = new System.Drawing.Size(56, 61);
 			this.btnEsqSup.TabIndex = 0;
@@ -55,7 +56,7 @@
 			// 
 			this.btnMidMid.Enabled = false;
 			this.btnMidMid.Location = new System.Drawing.Point(132, 93);
-			this.btnMidMid.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnMidMid.Margin = new System.Windows.Forms.Padding(2);
 			this.btnMidMid.Name = "btnMidMid";
 			this.btnMidMid.Size = new System.Drawing.Size(56, 61);
 			this.btnMidMid.TabIndex = 1;
@@ -66,7 +67,7 @@
 			// 
 			this.btnEsqMid.Enabled = false;
 			this.btnEsqMid.Location = new System.Drawing.Point(72, 93);
-			this.btnEsqMid.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnEsqMid.Margin = new System.Windows.Forms.Padding(2);
 			this.btnEsqMid.Name = "btnEsqMid";
 			this.btnEsqMid.Size = new System.Drawing.Size(56, 61);
 			this.btnEsqMid.TabIndex = 2;
@@ -77,7 +78,7 @@
 			// 
 			this.btnDirMid.Enabled = false;
 			this.btnDirMid.Location = new System.Drawing.Point(192, 93);
-			this.btnDirMid.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnDirMid.Margin = new System.Windows.Forms.Padding(2);
 			this.btnDirMid.Name = "btnDirMid";
 			this.btnDirMid.Size = new System.Drawing.Size(56, 61);
 			this.btnDirMid.TabIndex = 3;
@@ -88,7 +89,7 @@
 			// 
 			this.btnDirSup.Enabled = false;
 			this.btnDirSup.Location = new System.Drawing.Point(192, 28);
-			this.btnDirSup.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnDirSup.Margin = new System.Windows.Forms.Padding(2);
 			this.btnDirSup.Name = "btnDirSup";
 			this.btnDirSup.Size = new System.Drawing.Size(56, 61);
 			this.btnDirSup.TabIndex = 4;
@@ -99,7 +100,7 @@
 			// 
 			this.btnMidSup.Enabled = false;
 			this.btnMidSup.Location = new System.Drawing.Point(132, 28);
-			this.btnMidSup.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnMidSup.Margin = new System.Windows.Forms.Padding(2);
 			this.btnMidSup.Name = "btnMidSup";
 			this.btnMidSup.Size = new System.Drawing.Size(56, 61);
 			this.btnMidSup.TabIndex = 5;
@@ -110,7 +111,7 @@
 			// 
 			this.btnMidInf.Enabled = false;
 			this.btnMidInf.Location = new System.Drawing.Point(132, 158);
-			this.btnMidInf.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnMidInf.Margin = new System.Windows.Forms.Padding(2);
 			this.btnMidInf.Name = "btnMidInf";
 			this.btnMidInf.Size = new System.Drawing.Size(56, 61);
 			this.btnMidInf.TabIndex = 6;
@@ -121,7 +122,7 @@
 			// 
 			this.btnDirInf.Enabled = false;
 			this.btnDirInf.Location = new System.Drawing.Point(192, 158);
-			this.btnDirInf.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnDirInf.Margin = new System.Windows.Forms.Padding(2);
 			this.btnDirInf.Name = "btnDirInf";
 			this.btnDirInf.Size = new System.Drawing.Size(56, 61);
 			this.btnDirInf.TabIndex = 7;
@@ -132,7 +133,7 @@
 			// 
 			this.btnEsqInf.Enabled = false;
 			this.btnEsqInf.Location = new System.Drawing.Point(72, 158);
-			this.btnEsqInf.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnEsqInf.Margin = new System.Windows.Forms.Padding(2);
 			this.btnEsqInf.Name = "btnEsqInf";
 			this.btnEsqInf.Size = new System.Drawing.Size(56, 61);
 			this.btnEsqInf.TabIndex = 8;
@@ -141,8 +142,8 @@
 			// 
 			// btnStart
 			// 
-			this.btnStart.Location = new System.Drawing.Point(122, 243);
-			this.btnStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.btnStart.Location = new System.Drawing.Point(122, 236);
+			this.btnStart.Margin = new System.Windows.Forms.Padding(2);
 			this.btnStart.Name = "btnStart";
 			this.btnStart.Size = new System.Drawing.Size(75, 37);
 			this.btnStart.TabIndex = 9;
@@ -150,11 +151,21 @@
 			this.btnStart.UseVisualStyleBackColor = true;
 			this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
 			// 
+			// lineSeparator1
+			// 
+			this.lineSeparator1.Location = new System.Drawing.Point(0, 300);
+			this.lineSeparator1.MaximumSize = new System.Drawing.Size(0, 2);
+			this.lineSeparator1.MinimumSize = new System.Drawing.Size(0, 2);
+			this.lineSeparator1.Name = "lineSeparator1";
+			this.lineSeparator1.Size = new System.Drawing.Size(311, 2);
+			this.lineSeparator1.TabIndex = 10;
+			// 
 			// Battlefield
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(324, 301);
+			this.ClientSize = new System.Drawing.Size(310, 401);
+			this.Controls.Add(this.lineSeparator1);
 			this.Controls.Add(this.btnStart);
 			this.Controls.Add(this.btnEsqInf);
 			this.Controls.Add(this.btnDirInf);
@@ -166,7 +177,7 @@
 			this.Controls.Add(this.btnMidMid);
 			this.Controls.Add(this.btnEsqSup);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-			this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.Margin = new System.Windows.Forms.Padding(2);
 			this.MaximizeBox = false;
 			this.Name = "Battlefield";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -187,6 +198,7 @@
         private System.Windows.Forms.Button btnDirInf;
         private System.Windows.Forms.Button btnEsqInf;
         private System.Windows.Forms.Button btnStart;
-    }
+		private Components.LineSeparator lineSeparator1;
+	}
 }
 

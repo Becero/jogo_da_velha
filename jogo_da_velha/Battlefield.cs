@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 
+using NAudio;
+
 namespace jogo_da_velha
 {
 	public partial class Battlefield : Form
