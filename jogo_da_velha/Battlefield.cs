@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace jogo_da_velha
 {
-    public partial class Form1 : Form
+    public partial class Battlefield : Form
     {
         private bool symbol;
 
-        public Form1()
+        public Battlefield()
         {
             InitializeComponent();
         }

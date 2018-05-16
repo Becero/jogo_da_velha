@@ -1,6 +1,6 @@
 ﻿namespace jogo_da_velha
 {
-    partial class Form1
+    partial class Battlefield
     {
         /// <summary>
         /// Variável de designer necessária.
