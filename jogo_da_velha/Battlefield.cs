@@ -1,116 +1,153 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms; 
+using System.Windows.Forms;
 
 namespace jogo_da_velha
 {
-    public partial class Battlefield : Form
-    {
-        private bool symbol;
+	public partial class Battlefield : Form
+	{
+		private bool symbol;
+		private bool started = false;
 
-        public Battlefield()
-        {
-            InitializeComponent();
-        }
-        
-        private void btnStart_Click(object sender, EventArgs e)
-        {
-            MessageBoxManager.No = "X";
-            MessageBoxManager.Yes = "O";
+		public Battlefield()
+		{
+			InitializeComponent();
+		}
 
-            MessageBoxManager.Register();
+		private void btnStart_Click(object sender, EventArgs e)
+		{
+			if (!started)
+			{
+				OnSymbolSelect();
 
-            DialogResult dialogWizard = MessageBox.Show
-            (
-                "Selecione um símbolo",
-                "Jogo da Velha", MessageBoxButtons.YesNo, MessageBoxIcon.Information
-            );
-            MessageBoxManager.Unregister();
+				started = true;
 
-            if (dialogWizard == DialogResult.Yes)
-            {
-                // YES
-                symbol = true;
-            }
-            else
-            {
-                // NO
-                symbol = false;
-            }
+				btnStart.Text = "Reset";
+			}
+			else
+			{
+				OnGameReset();
+			}
+		}
 
-            ActivateButtons();
+		private void btnEsqSup_Click(object sender, EventArgs e)
+		{
+			OnButtonClick(btnEsqSup);
+		}
 
-        }
+		private void btnMidSup_Click(object sender, EventArgs e)
+		{
+			OnButtonClick(btnMidSup);
+		}
 
-        private void btnEsqSup_Click(object sender, EventArgs e)
-        {
-            if (symbol)
-            {
-                btnEsqSup.Text = "O";
-            }
-            else
-            {
-                btnEsqSup.Text = "X";
-            }
-        }
+		private void btnDirSup_Click(object sender, EventArgs e)
+		{
+			OnButtonClick(btnDirSup);
+		}
 
-        private void btnMidSup_Click(object sender, EventArgs e)
-        {
+		private void btnEsqMid_Click(object sender, EventArgs e)
+		{
+			OnButtonClick(btnEsqMid);
+		}
 
-        }
+		private void btnMidMid_Click(object sender, EventArgs e)
+		{
+			OnButtonClick(btnMidMid);
+		}
 
-        private void btnDirSup_Click(object sender, EventArgs e)
-        {
+		private void btnDirMid_Click(object sender, EventArgs e)
+		{
+			OnButtonClick(btnDirMid);
+		}
 
-        }
+		private void btnEsqInf_Click(object sender, EventArgs e)
+		{
+			OnButtonClick(btnEsqInf);
+		}
 
-        private void btnEsqMid_Click(object sender, EventArgs e)
-        {
+		private void btnMidInf_Click(object sender, EventArgs e)
+		{
+			OnButtonClick(btnMidInf);
+		}
 
-        }
+		private void btnDirInf_Click(object sender, EventArgs e)
+		{
+			OnButtonClick(btnDirInf);
+		}
 
-        private void btnMidMid_Click(object sender, EventArgs e)
-        {
 
-        }
 
-        private void btnDirMid_Click(object sender, EventArgs e)
-        {
 
-        }
+		// Game Events
+		private void OnGameStart(params Button[] gameButtons)
+		{
+			foreach (Button currentButton in gameButtons)
+			{
+				currentButton.Text = null;
+				currentButton.Enabled = true;
+			}
+		}
 
-        private void btnEsqInf_Click(object sender, EventArgs e)
-        {
+		private void OnSymbolSelect()
+		{
+			MessageBoxManager.No = "O";
+			MessageBoxManager.Yes = "X";
 
-        }
+			MessageBoxManager.Register();
 
-        private void btnMidInf_Click(object sender, EventArgs e)
-        {
+			DialogResult symbolDialog = MessageBox.Show
+			(
+				"Selecione um símbolo.",
+				"Jogo da Velha", MessageBoxButtons.YesNo, MessageBoxIcon.Information
+			);
+			MessageBoxManager.Unregister();
 
-        }
+			if (symbolDialog == DialogResult.Yes)
+			{
+				symbol = true;
+			}
+			else
+			{
+				symbol = false;
+			}
 
-        private void btnDirInf_Click(object sender, EventArgs e)
-        {
+			OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
+		}
 
-        }
+		private void OnGameReset()
+		{
+			MessageBoxManager.No = "Não";
+			MessageBoxManager.Yes = "Sim";
 
-        private void ActivateButtons()
-        {
-            btnEsqSup.Enabled = true;
-            btnMidSup.Enabled = true;
-            btnDirSup.Enabled = true;
-            btnEsqMid.Enabled = true;
-            btnMidMid.Enabled = true;
-            btnDirMid.Enabled = true;
-            btnEsqInf.Enabled = true;
-            btnMidInf.Enabled = true;
-            btnDirInf.Enabled = true;
-        }
-    }
+			MessageBoxManager.Register();
+
+			DialogResult resetDialog = MessageBox.Show
+			(
+				"Deseja começar um novo jogo?",
+				"Jogo da Velha", MessageBoxButtons.YesNo, MessageBoxIcon.Question
+			);
+			MessageBoxManager.Unregister();
+
+			if (resetDialog == DialogResult.Yes)
+			{
+				OnSymbolSelect();
+			}
+		}
+
+		private void OnButtonClick(Button button)
+		{
+			if (button.Enabled)
+			{
+				if (symbol)
+				{
+					button.Text = "X";
+				}
+				else
+				{
+					button.Text = "O";
+				}
+
+				button.Enabled = false;
+			}
+		}
+	}
 }
