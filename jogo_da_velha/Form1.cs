@@ -21,17 +21,17 @@ namespace jogo_da_velha
         
         private void btnStart_Click(object sender, EventArgs e)
         {
-            MessageBoxHelper.No = "X";
-            MessageBoxHelper.Yes = "O";
+            MessageBoxManager.No = "X";
+            MessageBoxManager.Yes = "O";
 
-            MessageBoxHelper.Register();
+            MessageBoxManager.Register();
 
             DialogResult dialogWizard = MessageBox.Show
             (
                 "Selecione um símbolo",
                 "Jogo da Velha", MessageBoxButtons.YesNo, MessageBoxIcon.Information
             );
-            MessageBoxHelper.Unregister();
+            MessageBoxManager.Unregister();
 
             if (dialogWizard == DialogResult.Yes)
             {
