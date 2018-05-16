@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 
-using NAudio;
-
 namespace jogo_da_velha
 {
 	public partial class Battlefield : Form
@@ -150,6 +148,30 @@ namespace jogo_da_velha
 
 				button.Enabled = false;
 			}
+		}
+
+
+
+
+		// Media Player
+		private void MediaPlayer_Button_PlayPause_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void MediaPlayer_Button_NextMusic_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void MediaPlayer_Button_LastMusic_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void MediaPlayer_TrackBar_Volume_Scroll(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
