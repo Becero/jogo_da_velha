@@ -1,7 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿/*
+ *	Program.cs
+ *	Author: Lucas Cota, Carlos Alberto, Caio Souza, Gabriel Werneck
+ *  Description: Main.
+ *	Date: 2018-05-16
+ *	Modified: 2018-05-16
+ */
+
+using System;
 using System.Windows.Forms;
 
 namespace jogo_da_velha

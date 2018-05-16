@@ -1,20 +1,47 @@
-﻿using System;
+﻿/*
+ *	Battlefield.cs
+ *	Author: Lucas Cota, Carlos Alberto, Caio Souza, Gabriel Werneck
+ *  Description: Game Battlefield.
+ *	Date: 2018-05-16
+ *	Modified: 2018-05-16
+ */
+
+using System;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using jogo_da_velha.Helpers;
 
 namespace jogo_da_velha
 {
 	public partial class Battlefield : Form
 	{
-        // true - 'X'   false - 'Y'
+		// Resources
 		private bool symbol;
-        private bool lastSymbol;
+		private bool lastSymbol;
 		private bool started = false;
 
+
+
+		// AudioPlayer Resources
+		private bool audioPlayer_Paused;
+		private AudioPlayer audioPlayer = new AudioPlayer(Directory.GetFiles("Soundtrack/").ToList());
+
+
+
+
+		// Default Constructor
 		public Battlefield()
 		{
 			InitializeComponent();
+
+			audioPlayer.Stream();
 		}
 
+
+
+
+		// Events
 		private void btnStart_Click(object sender, EventArgs e)
 		{
 			if (!started)
@@ -31,55 +58,55 @@ namespace jogo_da_velha
 			}
 		}
 
-        // Botao da Esquerda Superior
+		// Botão da Esquerda Superior
 		private void btnEsqSup_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnEsqSup);
 		}
 
-        // Botao do Centro Superior
+		// Botão do Centro Superior
 		private void btnMidSup_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnMidSup);
 		}
 
-        // Botao da Direita Superior
+		// Botão da Esquerda Central
 		private void btnDirSup_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnDirSup);
 		}
 
-        // Botao da Esquerda Central
+		// Botão Central
 		private void btnEsqMid_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnEsqMid);
 		}
 
-        // Botao Central
+		// Botão da Direita Central
 		private void btnMidMid_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnMidMid);
 		}
 
-        // Botao da Direita Central
+		// Botão da Direita Central
 		private void btnDirMid_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnDirMid);
 		}
 
-        // Botao da Esquerda Inferior
+		// Botão da Esquerda Inferior
 		private void btnEsqInf_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnEsqInf);
 		}
 
-        // Botao do Centro Inferior
+		// Botão do Centro Inferior
 		private void btnMidInf_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnMidInf);
 		}
 
-        // Botao da Direita Inferior
+		// Botão da Direita Inferior
 		private void btnDirInf_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnDirInf);
@@ -160,20 +187,16 @@ namespace jogo_da_velha
 				button.Enabled = false;
 			}
 
-            // Alterna simbolos
-            if (button.Text.Equals("X"))
-            {
-                lastSymbol = true;
-                symbol = false;
-            }
-            else
-            {
-                lastSymbol = false;
-                symbol = true;
-            }
-
-            // TODO: Verificar se deu velha
-
+			if (button.Text.Equals("X"))
+			{
+				lastSymbol = true;
+				symbol = false;
+			}
+			else
+			{
+				lastSymbol = false;
+				symbol = true;
+			}
 		}
 
 
@@ -182,7 +205,22 @@ namespace jogo_da_velha
 		// Media Player
 		private void MediaPlayer_Button_PlayPause_Click(object sender, EventArgs e)
 		{
+			if (audioPlayer_Paused)
+			{
+				audioPlayer.Play();
 
+				MediaPlayer_Button_PlayPause.Text = "Pause";
+
+				audioPlayer_Paused = false;
+			}
+			else
+			{
+				audioPlayer.Pause();
+
+				MediaPlayer_Button_PlayPause.Text = "Play";
+
+				audioPlayer_Paused = true;
+			}
 		}
 
 		private void MediaPlayer_Button_NextMusic_Click(object sender, EventArgs e)
@@ -197,7 +235,14 @@ namespace jogo_da_velha
 
 		private void MediaPlayer_TrackBar_Volume_Scroll(object sender, EventArgs e)
 		{
+			OnVolumeChange();
+		}
 
+		private void OnVolumeChange()
+		{
+			audioPlayer.SetVolume(MediaPlayer_TrackBar_Volume.Value);
+
+			MediaPlayer_Label_VolumeValue.Text = String.Format("{0}%", MediaPlayer_TrackBar_Volume.Value);
 		}
 	}
 }
