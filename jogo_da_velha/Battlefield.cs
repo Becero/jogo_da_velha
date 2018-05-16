@@ -31,46 +31,55 @@ namespace jogo_da_velha
 			}
 		}
 
+        // Botao da Esquerda Superior
 		private void btnEsqSup_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnEsqSup);
 		}
 
+        // Botao do Centro Superior
 		private void btnMidSup_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnMidSup);
 		}
 
+        // Botao da Direita Superior
 		private void btnDirSup_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnDirSup);
 		}
 
+        // Botao da Esquerda Central
 		private void btnEsqMid_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnEsqMid);
 		}
 
+        // Botao Central
 		private void btnMidMid_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnMidMid);
 		}
 
+        // Botao da Direita Central
 		private void btnDirMid_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnDirMid);
 		}
 
+        // Botao da Esquerda Inferior
 		private void btnEsqInf_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnEsqInf);
 		}
 
+        // Botao do Centro Inferior
 		private void btnMidInf_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnMidInf);
 		}
 
+        // Botao da Direita Inferior
 		private void btnDirInf_Click(object sender, EventArgs e)
 		{
 			OnButtonClick(btnDirInf);
@@ -151,6 +160,7 @@ namespace jogo_da_velha
 				button.Enabled = false;
 			}
 
+            // Alterna simbolos
             if (button.Text.Equals("X"))
             {
                 lastSymbol = true;
@@ -161,6 +171,9 @@ namespace jogo_da_velha
                 lastSymbol = false;
                 symbol = true;
             }
+
+            // TODO: Verificar se deu velha
+
 		}
 
 
