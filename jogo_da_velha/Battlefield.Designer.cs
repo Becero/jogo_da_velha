@@ -43,7 +43,7 @@
 			this.MediaPlayer_Button_LastMusic = new System.Windows.Forms.Button();
 			this.MediaPlayer_TrackBar_Volume = new System.Windows.Forms.TrackBar();
 			this.MediaPlayer_Label_Volume = new System.Windows.Forms.Label();
-			this.MediaPlayer_Label_MusicName = new System.Windows.Forms.Label();
+			this.MediaPlayer_Label_AudioName = new System.Windows.Forms.Label();
 			this.MediaPlayer_Label_VolumeValue = new System.Windows.Forms.Label();
 			this.MediaPlayer_LineSeparator = new jogo_da_velha.Components.LineSeparator();
 			((System.ComponentModel.ISupportInitialize)(this.MediaPlayer_TrackBar_Volume)).BeginInit();
@@ -165,7 +165,7 @@
 			this.MediaPlayer_Button_PlayPause.Name = "MediaPlayer_Button_PlayPause";
 			this.MediaPlayer_Button_PlayPause.Size = new System.Drawing.Size(75, 23);
 			this.MediaPlayer_Button_PlayPause.TabIndex = 11;
-			this.MediaPlayer_Button_PlayPause.Text = "Pause";
+			this.MediaPlayer_Button_PlayPause.Text = "❚❚";
 			this.MediaPlayer_Button_PlayPause.UseVisualStyleBackColor = true;
 			this.MediaPlayer_Button_PlayPause.Click += new System.EventHandler(this.MediaPlayer_Button_PlayPause_Click);
 			// 
@@ -175,7 +175,7 @@
 			this.MediaPlayer_Button_NextMusic.Name = "MediaPlayer_Button_NextMusic";
 			this.MediaPlayer_Button_NextMusic.Size = new System.Drawing.Size(75, 23);
 			this.MediaPlayer_Button_NextMusic.TabIndex = 12;
-			this.MediaPlayer_Button_NextMusic.Text = ">>";
+			this.MediaPlayer_Button_NextMusic.Text = "▶▶";
 			this.MediaPlayer_Button_NextMusic.UseVisualStyleBackColor = true;
 			this.MediaPlayer_Button_NextMusic.Click += new System.EventHandler(this.MediaPlayer_Button_NextMusic_Click);
 			// 
@@ -185,7 +185,7 @@
 			this.MediaPlayer_Button_LastMusic.Name = "MediaPlayer_Button_LastMusic";
 			this.MediaPlayer_Button_LastMusic.Size = new System.Drawing.Size(75, 23);
 			this.MediaPlayer_Button_LastMusic.TabIndex = 13;
-			this.MediaPlayer_Button_LastMusic.Text = "<<";
+			this.MediaPlayer_Button_LastMusic.Text = "◀◀";
 			this.MediaPlayer_Button_LastMusic.UseVisualStyleBackColor = true;
 			this.MediaPlayer_Button_LastMusic.Click += new System.EventHandler(this.MediaPlayer_Button_LastMusic_Click);
 			// 
@@ -198,7 +198,7 @@
 			this.MediaPlayer_TrackBar_Volume.Size = new System.Drawing.Size(45, 121);
 			this.MediaPlayer_TrackBar_Volume.TabIndex = 14;
 			this.MediaPlayer_TrackBar_Volume.TickFrequency = 10;
-			this.MediaPlayer_TrackBar_Volume.Value = 100;
+			this.MediaPlayer_TrackBar_Volume.Value = 30;
 			this.MediaPlayer_TrackBar_Volume.Scroll += new System.EventHandler(this.MediaPlayer_TrackBar_Volume_Scroll);
 			// 
 			// MediaPlayer_Label_Volume
@@ -210,22 +210,22 @@
 			this.MediaPlayer_Label_Volume.TabIndex = 15;
 			this.MediaPlayer_Label_Volume.Text = "Volume";
 			// 
-			// MediaPlayer_Label_MusicName
+			// MediaPlayer_Label_AudioName
 			// 
-			this.MediaPlayer_Label_MusicName.Font = new System.Drawing.Font("Lucida Sans Unicode", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.MediaPlayer_Label_MusicName.Location = new System.Drawing.Point(12, 355);
-			this.MediaPlayer_Label_MusicName.Name = "MediaPlayer_Label_MusicName";
-			this.MediaPlayer_Label_MusicName.Size = new System.Drawing.Size(252, 66);
-			this.MediaPlayer_Label_MusicName.TabIndex = 16;
+			this.MediaPlayer_Label_AudioName.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.MediaPlayer_Label_AudioName.Location = new System.Drawing.Point(12, 335);
+			this.MediaPlayer_Label_AudioName.Name = "MediaPlayer_Label_AudioName";
+			this.MediaPlayer_Label_AudioName.Size = new System.Drawing.Size(252, 66);
+			this.MediaPlayer_Label_AudioName.TabIndex = 16;
 			// 
 			// MediaPlayer_Label_VolumeValue
 			// 
 			this.MediaPlayer_Label_VolumeValue.AutoSize = true;
 			this.MediaPlayer_Label_VolumeValue.Location = new System.Drawing.Point(266, 452);
 			this.MediaPlayer_Label_VolumeValue.Name = "MediaPlayer_Label_VolumeValue";
-			this.MediaPlayer_Label_VolumeValue.Size = new System.Drawing.Size(33, 13);
+			this.MediaPlayer_Label_VolumeValue.Size = new System.Drawing.Size(27, 13);
 			this.MediaPlayer_Label_VolumeValue.TabIndex = 17;
-			this.MediaPlayer_Label_VolumeValue.Text = "100%";
+			this.MediaPlayer_Label_VolumeValue.Text = "30%";
 			// 
 			// MediaPlayer_LineSeparator
 			// 
@@ -242,7 +242,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(310, 471);
 			this.Controls.Add(this.MediaPlayer_Label_VolumeValue);
-			this.Controls.Add(this.MediaPlayer_Label_MusicName);
+			this.Controls.Add(this.MediaPlayer_Label_AudioName);
 			this.Controls.Add(this.MediaPlayer_Label_Volume);
 			this.Controls.Add(this.MediaPlayer_TrackBar_Volume);
 			this.Controls.Add(this.MediaPlayer_Button_LastMusic);
@@ -289,7 +289,7 @@
 		private System.Windows.Forms.Button MediaPlayer_Button_LastMusic;
 		private System.Windows.Forms.TrackBar MediaPlayer_TrackBar_Volume;
 		private System.Windows.Forms.Label MediaPlayer_Label_Volume;
-		private System.Windows.Forms.Label MediaPlayer_Label_MusicName;
+		private System.Windows.Forms.Label MediaPlayer_Label_AudioName;
 		private System.Windows.Forms.Label MediaPlayer_Label_VolumeValue;
 	}
 }

@@ -36,12 +36,17 @@ namespace jogo_da_velha
 			InitializeComponent();
 
 			// Initialize AudioPlayer
+			if (!Directory.Exists("Music/"))
+			{
+				Directory.CreateDirectory("Music/");
+			}
+
 			audioPlayer = new AudioPlayer(Directory.GetFiles("Music/").ToList());
 
 			// Initialize AudioPlayer Stream
 			if (!audioPlayer.Stream())
 			{
-				MediaPlayer_Label_MusicName = "Nenhuma música encontrada na pasta 'Music'."
+				MediaPlayer_Label_AudioName.Text = "Nenhuma música encontrada na pasta 'Music'. Você pode adicionar músicas nessa pasta para escutar durante o jogo.";
 			}
 		}
 
@@ -148,11 +153,11 @@ namespace jogo_da_velha
 
 			if (symbolDialog == DialogResult.Yes)
 			{
-				symbol = true;
+				playerSymbol = true;
 			}
 			else
 			{
-				symbol = false;
+				playerSymbol = false;
 			}
 
 			OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
@@ -182,7 +187,7 @@ namespace jogo_da_velha
 		{
 			if (button.Enabled)
 			{
-				if (symbol)
+				if (playerSymbol)
 				{
 					button.Text = "X";
 				}
@@ -196,12 +201,12 @@ namespace jogo_da_velha
 
 			if (button.Text.Equals("X"))
 			{
-				symbol = false;
+				playerSymbol = false;
 				lastSymbol = true;
 			}
 			else
 			{
-				symbol = true;
+				playerSymbol = true;
 				lastSymbol = false;
 			}
 		}
@@ -216,7 +221,7 @@ namespace jogo_da_velha
 			{
 				audioPlayer.Play();
 
-				MediaPlayer_Button_PlayPause.Text = "Pause";
+				MediaPlayer_Button_PlayPause.Text = "❚❚";
 
 				audioPaused = false;
 			}
@@ -224,7 +229,7 @@ namespace jogo_da_velha
 			{
 				audioPlayer.Pause();
 
-				MediaPlayer_Button_PlayPause.Text = "Play";
+				MediaPlayer_Button_PlayPause.Text = "▶";
 
 				audioPaused = true;
 			}
