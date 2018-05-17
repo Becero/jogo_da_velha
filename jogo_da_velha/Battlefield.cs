@@ -11,10 +11,11 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using jogo_da_velha.Helpers;
+using jogo_da_velha.Interfaces;
 
 namespace jogo_da_velha
 {
-	public partial class Battlefield : Form
+	public partial class Battlefield : Form, IOnAudioChange
 	{
 		// Resources
 		private bool lastSymbol;
@@ -41,7 +42,7 @@ namespace jogo_da_velha
 				Directory.CreateDirectory("Music/");
 			}
 
-			audioPlayer = new AudioPlayer(Directory.GetFiles("Music/").ToList());
+			audioPlayer = new AudioPlayer(this, Directory.GetFiles("Music/").ToList());
 
 			// Initialize AudioPlayer Stream
 			if (!audioPlayer.Stream())
@@ -237,12 +238,16 @@ namespace jogo_da_velha
 
 		private void MediaPlayer_Button_NextMusic_Click(object sender, EventArgs e)
 		{
+			audioPlayer.NextAudio();
 
+			MediaPlayer_Button_PlayPause.Text = "❚❚";
 		}
 
 		private void MediaPlayer_Button_LastMusic_Click(object sender, EventArgs e)
 		{
+			audioPlayer.LastAudio();
 
+			MediaPlayer_Button_PlayPause.Text = "❚❚";
 		}
 
 		private void MediaPlayer_TrackBar_Volume_Scroll(object sender, EventArgs e)
@@ -258,7 +263,23 @@ namespace jogo_da_velha
 		{
 			audioPlayer.SetVolume(MediaPlayer_TrackBar_Volume.Value);
 
-			MediaPlayer_Label_VolumeValue.Text = String.Format("{0}%", MediaPlayer_TrackBar_Volume.Value);
+			if (MediaPlayer_TrackBar_Volume.Value > 0)
+			{
+				MediaPlayer_Label_VolumeValue.Text = String.Format("{0}%", MediaPlayer_TrackBar_Volume.Value);
+			}
+			else
+			{
+				MediaPlayer_Label_VolumeValue.Text = "Muted";
+			}
+		}
+
+
+
+
+		// Interfaces
+		void IOnAudioChange.AudioChanged()
+		{
+			MediaPlayer_Label_AudioName.Text = audioPlayer.GetAudioName();
 		}
 	}
 }

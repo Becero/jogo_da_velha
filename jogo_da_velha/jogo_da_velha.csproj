@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="Components\MessageBoxManager.cs" />
     <Compile Include="Helpers\AudioPlayer.cs" />
+    <Compile Include="Interfaces\IOnAudioChange.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Battlefield.resx">

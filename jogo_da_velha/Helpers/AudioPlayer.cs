@@ -9,7 +9,9 @@
 using System;
 using NAudio;
 using NAudio.Wave;
+using jogo_da_velha.Interfaces;
 using System.Collections.Generic;
+using System.IO;
 
 namespace jogo_da_velha.Helpers
 {
@@ -18,15 +20,18 @@ namespace jogo_da_velha.Helpers
 		// Resources
 		private WaveStream waveStream;
 		private IWavePlayer audioPlayer;
-		private Queue<string> audioPlaylist;
+		private int playlistPosition = 0;
+		private List<string> audioPlaylist;
+		private IOnAudioChange onAudioChange;
 
 
 
 
 		// Playlist Constructor
-		public AudioPlayer(List<string> audioPlaylist)
+		public AudioPlayer(IOnAudioChange onAudioChange, List<string> audioPlaylist)
 		{
-			this.audioPlaylist = new Queue<string>(audioPlaylist);
+			this.onAudioChange = onAudioChange;
+			this.audioPlaylist = new List<string>(audioPlaylist);
 		}
 
 
@@ -55,11 +60,13 @@ namespace jogo_da_velha.Helpers
 			}
 
 			audioPlayer = new WaveOutEvent();
-			waveStream = new AudioFileReader(audioPlaylist.Dequeue());
+			waveStream = new AudioFileReader(audioPlaylist[playlistPosition]);
 
 			audioPlayer.Init(waveStream);
 			audioPlayer.PlaybackStopped += (sender, evn) => { Stream(); };
 			audioPlayer.Play();
+
+			onAudioChange.AudioChanged();
 
 			return true;
 		}
@@ -86,6 +93,50 @@ namespace jogo_da_velha.Helpers
 			{
 				audioPlayer.Volume = volume / 100f;
 			}
+		}
+
+		public void NextAudio()
+		{
+			if (audioPlayer != null)
+			{
+				if (playlistPosition != audioPlaylist.Count - 1)
+				{
+					playlistPosition++;
+				}
+				else
+				{
+					playlistPosition = 0;
+				}
+
+				audioPlayer.Stop();
+			}
+		}
+
+		public void LastAudio()
+		{
+			if (audioPlayer != null)
+			{
+				if (playlistPosition != 0)
+				{
+					playlistPosition--;
+				}
+				else
+				{
+					playlistPosition = audioPlaylist.Count - 1;
+				}
+
+				audioPlayer.Stop();
+			}
+		}
+
+		public string GetAudioName()
+		{
+			if (audioPlayer != null)
+			{
+				return Path.GetFileNameWithoutExtension(audioPlaylist[playlistPosition]);
+			}
+
+			return null;
 		}
 	}
 }
