@@ -45,6 +45,7 @@
 			this.MediaPlayer_Label_Volume = new System.Windows.Forms.Label();
 			this.MediaPlayer_Label_AudioName = new System.Windows.Forms.Label();
 			this.MediaPlayer_Label_VolumeValue = new System.Windows.Forms.Label();
+			this.MediaPlayer_Label_AudioTime = new System.Windows.Forms.Label();
 			this.MediaPlayer_LineSeparator = new jogo_da_velha.Components.LineSeparator();
 			((System.ComponentModel.ISupportInitialize)(this.MediaPlayer_TrackBar_Volume)).BeginInit();
 			this.SuspendLayout();
@@ -213,7 +214,7 @@
 			// MediaPlayer_Label_AudioName
 			// 
 			this.MediaPlayer_Label_AudioName.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.MediaPlayer_Label_AudioName.Location = new System.Drawing.Point(12, 335);
+			this.MediaPlayer_Label_AudioName.Location = new System.Drawing.Point(12, 330);
 			this.MediaPlayer_Label_AudioName.Name = "MediaPlayer_Label_AudioName";
 			this.MediaPlayer_Label_AudioName.Size = new System.Drawing.Size(252, 66);
 			this.MediaPlayer_Label_AudioName.TabIndex = 16;
@@ -226,6 +227,14 @@
 			this.MediaPlayer_Label_VolumeValue.Size = new System.Drawing.Size(27, 13);
 			this.MediaPlayer_Label_VolumeValue.TabIndex = 17;
 			this.MediaPlayer_Label_VolumeValue.Text = "30%";
+			// 
+			// MediaPlayer_Label_AudioTime
+			// 
+			this.MediaPlayer_Label_AudioTime.AutoSize = true;
+			this.MediaPlayer_Label_AudioTime.Location = new System.Drawing.Point(12, 401);
+			this.MediaPlayer_Label_AudioTime.Name = "MediaPlayer_Label_AudioTime";
+			this.MediaPlayer_Label_AudioTime.Size = new System.Drawing.Size(0, 13);
+			this.MediaPlayer_Label_AudioTime.TabIndex = 18;
 			// 
 			// MediaPlayer_LineSeparator
 			// 
@@ -241,6 +250,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(310, 471);
+			this.Controls.Add(this.MediaPlayer_Label_AudioTime);
 			this.Controls.Add(this.MediaPlayer_Label_VolumeValue);
 			this.Controls.Add(this.MediaPlayer_Label_AudioName);
 			this.Controls.Add(this.MediaPlayer_Label_Volume);
@@ -291,6 +301,7 @@
 		private System.Windows.Forms.Label MediaPlayer_Label_Volume;
 		private System.Windows.Forms.Label MediaPlayer_Label_AudioName;
 		private System.Windows.Forms.Label MediaPlayer_Label_VolumeValue;
+		private System.Windows.Forms.Label MediaPlayer_Label_AudioTime;
 	}
 }
 

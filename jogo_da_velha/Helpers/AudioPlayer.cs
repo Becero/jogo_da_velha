@@ -6,12 +6,10 @@
  *	Modified: 2018-05-16
  */
 
-using System;
-using NAudio;
+using System.IO;
 using NAudio.Wave;
 using jogo_da_velha.Interfaces;
 using System.Collections.Generic;
-using System.IO;
 
 namespace jogo_da_velha.Helpers
 {
@@ -134,6 +132,26 @@ namespace jogo_da_velha.Helpers
 			if (audioPlayer != null)
 			{
 				return Path.GetFileNameWithoutExtension(audioPlaylist[playlistPosition]);
+			}
+
+			return null;
+		}
+
+		public string GetAudioTime()
+		{
+			if (audioPlayer != null)
+			{
+				return waveStream.TotalTime.ToString("mm\\:ss");
+			}
+
+			return null;
+		}
+
+		public string GetAudioCurrentTime()
+		{
+			if (audioPlayer != null)
+			{
+				return waveStream.CurrentTime.ToString("mm\\:ss");
 			}
 
 			return null;

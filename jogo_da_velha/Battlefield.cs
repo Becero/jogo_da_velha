@@ -282,6 +282,7 @@ namespace jogo_da_velha
 		void IOnAudioChange.AudioChanged()
 		{
 			MediaPlayer_Label_AudioName.Text = audioPlayer.GetAudioName();
+			MediaPlayer_Label_AudioTime.Text = String.Format("{0} / {1}", audioPlayer.GetAudioCurrentTime(), audioPlayer.GetAudioTime());
 		}
 	}
 }
