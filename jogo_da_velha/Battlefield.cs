@@ -49,6 +49,8 @@ namespace jogo_da_velha
 			{
 				MediaPlayer_Label_AudioName.Text = "Nenhuma música encontrada na pasta 'Music'. Você pode adicionar músicas nessa pasta para escutar durante o jogo.";
 			}
+
+			OnVolumeChange();
 		}
 
 
