@@ -37,20 +37,35 @@ namespace jogo_da_velha
 			InitializeComponent();
 
 			// Initialize AudioPlayer
-			if (!Directory.Exists("Music/"))
+			try
 			{
-				Directory.CreateDirectory("Music/");
+				if (!Directory.Exists("Music/"))
+				{
+					Directory.CreateDirectory("Music/");
+				}
+
+				audioPlayer = new AudioPlayer(this, Directory.GetFiles("Music/").ToList());
+
+				// Initialize AudioPlayer Stream
+				if (!audioPlayer.Stream())
+				{
+					MediaPlayer_Label_AudioName.Text = "Nenhuma música encontrada na pasta 'Music'. Você pode adicionar músicas nessa pasta para escutar durante o jogo.";
+				}
+				else
+				{
+					MediaPlayer_Timer_AudioTime.Start();
+
+					OnVolumeChange();
+				}
 			}
-
-			audioPlayer = new AudioPlayer(this, Directory.GetFiles("Music/").ToList());
-
-			// Initialize AudioPlayer Stream
-			if (!audioPlayer.Stream())
+			catch (IOException e)
 			{
-				MediaPlayer_Label_AudioName.Text = "Nenhuma música encontrada na pasta 'Music'. Você pode adicionar músicas nessa pasta para escutar durante o jogo.";
+				Console.WriteLine(e);
 			}
-
-			OnVolumeChange();
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 
 
@@ -257,6 +272,11 @@ namespace jogo_da_velha
 			OnVolumeChange();
 		}
 
+		private void MediaPlayer_Timer_AudioTime_Tick(object sender, EventArgs e)
+		{
+			MediaPlayer_Label_AudioTime.Text = String.Format("{0} / {1}", audioPlayer.GetAudioCurrentTime(), audioPlayer.GetAudioTime());
+		}
+
 
 
 
@@ -282,7 +302,6 @@ namespace jogo_da_velha
 		void IOnAudioChange.AudioChanged()
 		{
 			MediaPlayer_Label_AudioName.Text = audioPlayer.GetAudioName();
-			MediaPlayer_Label_AudioTime.Text = String.Format("{0} / {1}", audioPlayer.GetAudioCurrentTime(), audioPlayer.GetAudioTime());
 		}
 	}
 }
