@@ -10,6 +10,7 @@ using System.IO;
 using NAudio.Wave;
 using jogo_da_velha.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace jogo_da_velha.Helpers
 {
@@ -93,6 +94,14 @@ namespace jogo_da_velha.Helpers
 			}
 		}
 
+		public void SetTime(int time)
+		{
+			if (audioPlayer != null)
+			{
+				waveStream.CurrentTime = TimeSpan.FromSeconds((waveStream.TotalTime.TotalSeconds * time) / 100);
+			}
+		}
+
 		public void NextAudio()
 		{
 			if (audioPlayer != null)
@@ -137,24 +146,26 @@ namespace jogo_da_velha.Helpers
 			return null;
 		}
 
-		public string GetAudioTime()
+		public TimeSpan GetAudioTime()
 		{
 			if (audioPlayer != null)
 			{
-				return waveStream.TotalTime.ToString("mm\\:ss");
+				//return waveStream.TotalTime.ToString("mm\\:ss");
+				return waveStream.TotalTime;
 			}
 
-			return null;
+			return TimeSpan.Zero;
 		}
 
-		public string GetAudioCurrentTime()
+		public TimeSpan GetAudioCurrentTime()
 		{
 			if (audioPlayer != null)
 			{
-				return waveStream.CurrentTime.ToString("mm\\:ss");
+				//return waveStream.CurrentTime.ToString("mm\\:ss");
+				return waveStream.CurrentTime;
 			}
 
-			return null;
+			return TimeSpan.Zero;
 		}
 	}
 }

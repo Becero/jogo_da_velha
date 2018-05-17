@@ -272,9 +272,21 @@ namespace jogo_da_velha
 			OnVolumeChange();
 		}
 
+		private void MediaPlayer_TrackBar_AudioTime_Scroll(object sender, EventArgs e)
+		{
+			audioPlayer.SetTime(MediaPlayer_TrackBar_AudioTime.Value);
+		}
+
+		private void MediaPlayer_TrackBar_AudioTime_MouseDown(object sender, MouseEventArgs e)
+		{
+			audioPlayer.SetTime(Convert.ToInt32(((double)e.X / (double)MediaPlayer_TrackBar_AudioTime.Width) * MediaPlayer_TrackBar_AudioTime.Maximum));
+		}
+
 		private void MediaPlayer_Timer_AudioTime_Tick(object sender, EventArgs e)
 		{
-			MediaPlayer_Label_AudioTime.Text = String.Format("{0} / {1}", audioPlayer.GetAudioCurrentTime(), audioPlayer.GetAudioTime());
+			MediaPlayer_Label_AudioTime.Text = String.Format("{0} / {1}", audioPlayer.GetAudioCurrentTime().ToString("mm\\:ss"), audioPlayer.GetAudioTime().ToString("mm\\:ss"));
+
+			MediaPlayer_TrackBar_AudioTime.Value = Math.Min(MediaPlayer_TrackBar_AudioTime.Maximum, (int)(100 * audioPlayer.GetAudioCurrentTime().TotalSeconds / audioPlayer.GetAudioTime().TotalSeconds));
 		}
 
 

@@ -48,8 +48,10 @@
 			this.MediaPlayer_Label_VolumeValue = new System.Windows.Forms.Label();
 			this.MediaPlayer_Label_AudioTime = new System.Windows.Forms.Label();
 			this.MediaPlayer_Timer_AudioTime = new System.Windows.Forms.Timer(this.components);
+			this.MediaPlayer_TrackBar_AudioTime = new System.Windows.Forms.TrackBar();
 			this.MediaPlayer_LineSeparator = new jogo_da_velha.Components.LineSeparator();
 			((System.ComponentModel.ISupportInitialize)(this.MediaPlayer_TrackBar_Volume)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.MediaPlayer_TrackBar_AudioTime)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// btnEsqSup
@@ -164,7 +166,7 @@
 			// 
 			// MediaPlayer_Button_PlayPause
 			// 
-			this.MediaPlayer_Button_PlayPause.Location = new System.Drawing.Point(93, 425);
+			this.MediaPlayer_Button_PlayPause.Location = new System.Drawing.Point(92, 442);
 			this.MediaPlayer_Button_PlayPause.Name = "MediaPlayer_Button_PlayPause";
 			this.MediaPlayer_Button_PlayPause.Size = new System.Drawing.Size(75, 23);
 			this.MediaPlayer_Button_PlayPause.TabIndex = 11;
@@ -174,7 +176,7 @@
 			// 
 			// MediaPlayer_Button_NextMusic
 			// 
-			this.MediaPlayer_Button_NextMusic.Location = new System.Drawing.Point(173, 425);
+			this.MediaPlayer_Button_NextMusic.Location = new System.Drawing.Point(173, 442);
 			this.MediaPlayer_Button_NextMusic.Name = "MediaPlayer_Button_NextMusic";
 			this.MediaPlayer_Button_NextMusic.Size = new System.Drawing.Size(75, 23);
 			this.MediaPlayer_Button_NextMusic.TabIndex = 12;
@@ -184,7 +186,7 @@
 			// 
 			// MediaPlayer_Button_LastMusic
 			// 
-			this.MediaPlayer_Button_LastMusic.Location = new System.Drawing.Point(12, 425);
+			this.MediaPlayer_Button_LastMusic.Location = new System.Drawing.Point(12, 442);
 			this.MediaPlayer_Button_LastMusic.Name = "MediaPlayer_Button_LastMusic";
 			this.MediaPlayer_Button_LastMusic.Size = new System.Drawing.Size(75, 23);
 			this.MediaPlayer_Button_LastMusic.TabIndex = 13;
@@ -235,12 +237,26 @@
 			this.MediaPlayer_Label_AudioTime.AutoSize = true;
 			this.MediaPlayer_Label_AudioTime.Location = new System.Drawing.Point(12, 401);
 			this.MediaPlayer_Label_AudioTime.Name = "MediaPlayer_Label_AudioTime";
-			this.MediaPlayer_Label_AudioTime.Size = new System.Drawing.Size(0, 13);
+			this.MediaPlayer_Label_AudioTime.Size = new System.Drawing.Size(72, 13);
 			this.MediaPlayer_Label_AudioTime.TabIndex = 18;
+			this.MediaPlayer_Label_AudioTime.Text = "00:00 / 00:00";
 			// 
 			// MediaPlayer_Timer_AudioTime
 			// 
 			this.MediaPlayer_Timer_AudioTime.Tick += new System.EventHandler(this.MediaPlayer_Timer_AudioTime_Tick);
+			// 
+			// MediaPlayer_TrackBar_AudioTime
+			// 
+			this.MediaPlayer_TrackBar_AudioTime.AutoSize = false;
+			this.MediaPlayer_TrackBar_AudioTime.LargeChange = 0;
+			this.MediaPlayer_TrackBar_AudioTime.Location = new System.Drawing.Point(7, 417);
+			this.MediaPlayer_TrackBar_AudioTime.Maximum = 100;
+			this.MediaPlayer_TrackBar_AudioTime.Name = "MediaPlayer_TrackBar_AudioTime";
+			this.MediaPlayer_TrackBar_AudioTime.Size = new System.Drawing.Size(241, 20);
+			this.MediaPlayer_TrackBar_AudioTime.TabIndex = 19;
+			this.MediaPlayer_TrackBar_AudioTime.TickStyle = System.Windows.Forms.TickStyle.None;
+			this.MediaPlayer_TrackBar_AudioTime.Scroll += new System.EventHandler(this.MediaPlayer_TrackBar_AudioTime_Scroll);
+			this.MediaPlayer_TrackBar_AudioTime.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MediaPlayer_TrackBar_AudioTime_MouseDown);
 			// 
 			// MediaPlayer_LineSeparator
 			// 
@@ -255,7 +271,8 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(310, 471);
+			this.ClientSize = new System.Drawing.Size(310, 476);
+			this.Controls.Add(this.MediaPlayer_TrackBar_AudioTime);
 			this.Controls.Add(this.MediaPlayer_Label_AudioTime);
 			this.Controls.Add(this.MediaPlayer_Label_VolumeValue);
 			this.Controls.Add(this.MediaPlayer_Label_AudioName);
@@ -282,6 +299,7 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Jogo da Velha";
 			((System.ComponentModel.ISupportInitialize)(this.MediaPlayer_TrackBar_Volume)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.MediaPlayer_TrackBar_AudioTime)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -309,6 +327,7 @@
 		private System.Windows.Forms.Label MediaPlayer_Label_VolumeValue;
 		private System.Windows.Forms.Label MediaPlayer_Label_AudioTime;
 		private System.Windows.Forms.Timer MediaPlayer_Timer_AudioTime;
+		private System.Windows.Forms.TrackBar MediaPlayer_TrackBar_AudioTime;
 	}
 }
 
