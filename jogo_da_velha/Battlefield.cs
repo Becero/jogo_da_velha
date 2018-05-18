@@ -15,19 +15,17 @@ using jogo_da_velha.Interfaces;
 
 namespace jogo_da_velha
 {
-	public partial class Battlefield : Form, IOnAudioChange
-	{
-		// Resources
-		private bool lastSymbol;
-		private bool playerSymbol;
-		private bool gameStarted = false;
-
+    public partial class Battlefield : Form, IOnAudioChange
+    {
+        // Resources
+        private String playerSymbol;
+        private bool gameStarted = false;
+        private String[,] matrizBattle = new String[3,3];
 
 
 		// AudioPlayer Resources
 		private bool audioPaused;
 		private AudioPlayer audioPlayer; 
-
 
 
 
@@ -91,55 +89,55 @@ namespace jogo_da_velha
 		// Botão da Esquerda Superior
 		private void btnEsqSup_Click(object sender, EventArgs e)
 		{
-			OnButtonClick(btnEsqSup);
+			OnButtonClick(btnEsqSup, 0, 0);
 		}
 
 		// Botão do Centro Superior
 		private void btnMidSup_Click(object sender, EventArgs e)
 		{
-			OnButtonClick(btnMidSup);
+			OnButtonClick(btnMidSup, 0 ,1);
 		}
 
 		// Botão da Esquerda Central
 		private void btnDirSup_Click(object sender, EventArgs e)
 		{
-			OnButtonClick(btnDirSup);
+			OnButtonClick(btnDirSup, 0, 2);
 		}
 
 		// Botão Central
 		private void btnEsqMid_Click(object sender, EventArgs e)
 		{
-			OnButtonClick(btnEsqMid);
+			OnButtonClick(btnEsqMid, 1, 0);
 		}
 
 		// Botão da Direita Central
 		private void btnMidMid_Click(object sender, EventArgs e)
 		{
-			OnButtonClick(btnMidMid);
+			OnButtonClick(btnMidMid, 1, 1);
 		}
 
 		// Botão da Direita Central
 		private void btnDirMid_Click(object sender, EventArgs e)
 		{
-			OnButtonClick(btnDirMid);
+			OnButtonClick(btnDirMid, 1, 2);
 		}
 
 		// Botão da Esquerda Inferior
 		private void btnEsqInf_Click(object sender, EventArgs e)
 		{
-			OnButtonClick(btnEsqInf);
+			OnButtonClick(btnEsqInf, 2, 0);
 		}
 
 		// Botão do Centro Inferior
 		private void btnMidInf_Click(object sender, EventArgs e)
 		{
-			OnButtonClick(btnMidInf);
+			OnButtonClick(btnMidInf, 2, 1);
 		}
 
 		// Botão da Direita Inferior
 		private void btnDirInf_Click(object sender, EventArgs e)
 		{
-			OnButtonClick(btnDirInf);
+			OnButtonClick(btnDirInf, 2, 2);
 		}
 
 
@@ -148,7 +146,15 @@ namespace jogo_da_velha
 		// Game Events
 		private void OnGameStart(params Button[] gameButtons)
 		{
-			foreach (Button currentButton in gameButtons)
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    matrizBattle[i, j] = "";
+                }
+            }
+
+            foreach (Button currentButton in gameButtons)
 			{
 				currentButton.Text = null;
 				currentButton.Enabled = true;
@@ -171,11 +177,11 @@ namespace jogo_da_velha
 
 			if (symbolDialog == DialogResult.Yes)
 			{
-				playerSymbol = true;
+				playerSymbol = "X";
 			}
 			else
 			{
-				playerSymbol = false;
+				playerSymbol = "O";
 			}
 
 			OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
@@ -201,11 +207,11 @@ namespace jogo_da_velha
 			}
 		}
 
-		private void OnButtonClick(Button button)
+		private void OnButtonClick(Button button, int posX, int posY)
 		{
 			if (button.Enabled)
 			{
-				if (playerSymbol)
+				if (playerSymbol.Equals("X"))
 				{
 					button.Text = "X";
 				}
@@ -214,20 +220,37 @@ namespace jogo_da_velha
 					button.Text = "O";
 				}
 
+                matrizBattle[posX, posY] = playerSymbol;
+
 				button.Enabled = false;
 			}
 
+            // Verifica se humano venceu
+            if (GameLogic.CheckVictory(matrizBattle))
+            {
+                MessageBox.Show("Humano venceu!");
+                OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
+                return;
+            }
+
 			if (button.Text.Equals("X"))
 			{
-				playerSymbol = false;
-				lastSymbol = true;
-			}
+                GameLogic.EnemyMovement("O", matrizBattle, posX, posY);
+            }
 			else
 			{
-				playerSymbol = true;
-				lastSymbol = false;
-			}
-		}
+                GameLogic.EnemyMovement("X", matrizBattle, posX, posY);
+            }
+
+            // Verifica se inimigo venceu
+            if (GameLogic.CheckVictory(matrizBattle))
+            {
+                MessageBox.Show("Computador venceu!");
+                OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
+                return;
+            }
+
+        }
 
 
 
