@@ -1,8 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ *	GameLogic.cs
+ *	Author: Carlos Alberto
+ *  Description: Game Battlefield Logic.
+ *	Date: 2018-05-17
+ *	Modified: 2018-05-17
+ */
+
+using System;
 using System.Windows.Forms;
 
 namespace jogo_da_velha
@@ -45,7 +49,8 @@ namespace jogo_da_velha
                 (bf[0, 2].Equals("X") && bf[1, 1].Equals("X") && bf[2, 0].Equals("X")))
             {
                 return true;
-            } else if ((bf[0, 0].Equals("O") && bf[0, 1].Equals("O") && bf[0, 2].Equals("O")) ||
+            }
+			else if ((bf[0, 0].Equals("O") && bf[0, 1].Equals("O") && bf[0, 2].Equals("O")) ||
                 (bf[1, 0].Equals("O") && bf[1, 1].Equals("O") && bf[1, 2].Equals("O")) ||
                 (bf[2, 0].Equals("O") && bf[2, 1].Equals("O") && bf[2, 2].Equals("O")) ||
                 (bf[0, 0].Equals("O") && bf[1, 0].Equals("O") && bf[2, 0].Equals("O")) ||

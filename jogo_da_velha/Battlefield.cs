@@ -20,7 +20,7 @@ namespace jogo_da_velha
         // Resources
         private String playerSymbol;
         private bool gameStarted = false;
-        private String[,] matrizBattle = new String[3,3];
+        private String[,] matrixBattle = new String[3, 3];
 
 
 		// AudioPlayer Resources
@@ -51,7 +51,7 @@ namespace jogo_da_velha
 				}
 				else
 				{
-					MediaPlayer_Timer_AudioTime.Start();
+					OnAudioTimeChanged.Start();
 
 					OnVolumeChange();
 				}
@@ -150,7 +150,7 @@ namespace jogo_da_velha
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    matrizBattle[i, j] = "";
+                    matrixBattle[i, j] = "";
                 }
             }
 
@@ -220,34 +220,42 @@ namespace jogo_da_velha
 					button.Text = "O";
 				}
 
-                matrizBattle[posX, posY] = playerSymbol;
+                matrixBattle[posX, posY] = playerSymbol;
 
 				button.Enabled = false;
 			}
 
             // Verifica se humano venceu
-            if (GameLogic.CheckVictory(matrizBattle))
+            if (GameLogic.CheckVictory(matrixBattle))
             {
                 MessageBox.Show("Humano venceu!");
+
                 OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
-                return;
+
+				// TODO: Som de VITÓRIA e MessageBox personalizada.
+
+				return;
             }
 
 			if (button.Text.Equals("X"))
 			{
-                GameLogic.EnemyMovement("O", matrizBattle, posX, posY);
+                GameLogic.EnemyMovement("O", matrixBattle, posX, posY);
             }
 			else
 			{
-                GameLogic.EnemyMovement("X", matrizBattle, posX, posY);
+                GameLogic.EnemyMovement("X", matrixBattle, posX, posY);
             }
 
             // Verifica se inimigo venceu
-            if (GameLogic.CheckVictory(matrizBattle))
+            if (GameLogic.CheckVictory(matrixBattle))
             {
                 MessageBox.Show("Computador venceu!");
+
                 OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
-                return;
+
+				// TODO: Som de DERROTA e MessageBox personalizada.
+
+				return;
             }
 
         }
@@ -255,7 +263,7 @@ namespace jogo_da_velha
 
 
 
-		// AudioPlayer
+		// MediaPlayer
 		private void MediaPlayer_Button_PlayPause_Click(object sender, EventArgs e)
 		{
 			if (audioPaused)
@@ -278,14 +286,14 @@ namespace jogo_da_velha
 
 		private void MediaPlayer_Button_NextMusic_Click(object sender, EventArgs e)
 		{
-			audioPlayer.NextAudio();
+			audioPlayer.Next();
 
 			MediaPlayer_Button_PlayPause.Text = "❚❚";
 		}
 
 		private void MediaPlayer_Button_LastMusic_Click(object sender, EventArgs e)
 		{
-			audioPlayer.LastAudio();
+			audioPlayer.Back();
 
 			MediaPlayer_Button_PlayPause.Text = "❚❚";
 		}
@@ -315,7 +323,7 @@ namespace jogo_da_velha
 
 
 
-		// AudioPlayer Events
+		// MediaPlayer Events
 		private void OnVolumeChange()
 		{
 			audioPlayer.SetVolume(MediaPlayer_TrackBar_Volume.Value);

@@ -102,7 +102,7 @@ namespace jogo_da_velha.Helpers
 			}
 		}
 
-		public void NextAudio()
+		public void Next()
 		{
 			if (audioPlayer != null)
 			{
@@ -119,7 +119,7 @@ namespace jogo_da_velha.Helpers
 			}
 		}
 
-		public void LastAudio()
+		public void Back()
 		{
 			if (audioPlayer != null)
 			{
@@ -150,7 +150,7 @@ namespace jogo_da_velha.Helpers
 		{
 			if (audioPlayer != null)
 			{
-				//return waveStream.TotalTime.ToString("mm\\:ss");
+				// ToString("mm\\:ss");
 				return waveStream.TotalTime;
 			}
 
@@ -161,7 +161,7 @@ namespace jogo_da_velha.Helpers
 		{
 			if (audioPlayer != null)
 			{
-				//return waveStream.CurrentTime.ToString("mm\\:ss");
+				// ToString("mm\\:ss");
 				return waveStream.CurrentTime;
 			}
 
