@@ -20,7 +20,7 @@ namespace jogo_da_velha
         // Resources
         private String playerSymbol;
         private bool gameStarted = false;
-        private String[,] matrizBattle = new String[3,3];
+        private Control[,] matrizBattle = new Control[3,3];
 
 
 		// AudioPlayer Resources
@@ -146,19 +146,19 @@ namespace jogo_da_velha
 		// Game Events
 		private void OnGameStart(params Button[] gameButtons)
 		{
+            int bt = 0;
+
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    matrizBattle[i, j] = "";
-                }
-            }
+                    matrizBattle[i, j] = gameButtons[bt];
+                    matrizBattle[i, j].Text = "";
+                    matrizBattle[i, j].Enabled = true;
 
-            foreach (Button currentButton in gameButtons)
-			{
-				currentButton.Text = null;
-				currentButton.Enabled = true;
-			}
+                    bt++;
+                }
+            } 
 		}
 
 		private void OnSymbolSelect()
@@ -220,12 +220,12 @@ namespace jogo_da_velha
 					button.Text = "O";
 				}
 
-                matrizBattle[posX, posY] = playerSymbol;
+                matrizBattle[posX, posY] = button;
 
 				button.Enabled = false;
 			}
 
-            // Verifica se humano venceu
+            // Verifica vitoria humano
             if (GameLogic.CheckVictory(matrizBattle))
             {
                 MessageBox.Show("Humano venceu!");
@@ -233,7 +233,7 @@ namespace jogo_da_velha
                 return;
             }
 
-			if (button.Text.Equals("X"))
+            if (button.Text.Equals("X"))
 			{
                 GameLogic.EnemyMovement("O", matrizBattle, posX, posY);
             }
@@ -242,7 +242,7 @@ namespace jogo_da_velha
                 GameLogic.EnemyMovement("X", matrizBattle, posX, posY);
             }
 
-            // Verifica se inimigo venceu
+            // Verifica vitoria computador
             if (GameLogic.CheckVictory(matrizBattle))
             {
                 MessageBox.Show("Computador venceu!");
