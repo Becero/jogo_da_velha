@@ -230,7 +230,7 @@ namespace jogo_da_velha
             {
                 MessageBox.Show("Humano venceu!");
 
-                OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
+				OnGameReset();
 
 				// TODO: Som de VITÓRIA e MessageBox personalizada.
 
@@ -251,7 +251,7 @@ namespace jogo_da_velha
             {
                 MessageBox.Show("Computador venceu!");
 
-                OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
+				OnGameReset();
 
 				// TODO: Som de DERROTA e MessageBox personalizada.
 
