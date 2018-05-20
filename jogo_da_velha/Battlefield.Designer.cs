@@ -47,7 +47,7 @@
 			this.MediaPlayer_Label_AudioName = new System.Windows.Forms.Label();
 			this.MediaPlayer_Label_VolumeValue = new System.Windows.Forms.Label();
 			this.MediaPlayer_Label_AudioTime = new System.Windows.Forms.Label();
-			this.MediaPlayer_Timer_AudioTime = new System.Windows.Forms.Timer(this.components);
+			this.OnAudioTimeChanged = new System.Windows.Forms.Timer(this.components);
 			this.MediaPlayer_TrackBar_AudioTime = new System.Windows.Forms.TrackBar();
 			this.MediaPlayer_LineSeparator = new jogo_da_velha.Components.LineSeparator();
 			((System.ComponentModel.ISupportInitialize)(this.MediaPlayer_TrackBar_Volume)).BeginInit();
@@ -241,9 +241,9 @@
 			this.MediaPlayer_Label_AudioTime.TabIndex = 18;
 			this.MediaPlayer_Label_AudioTime.Text = "00:00 / 00:00";
 			// 
-			// MediaPlayer_Timer_AudioTime
+			// OnAudioTimeChanged
 			// 
-			this.MediaPlayer_Timer_AudioTime.Tick += new System.EventHandler(this.MediaPlayer_Timer_AudioTime_Tick);
+			this.OnAudioTimeChanged.Tick += new System.EventHandler(this.MediaPlayer_Timer_AudioTime_Tick);
 			// 
 			// MediaPlayer_TrackBar_AudioTime
 			// 
@@ -326,7 +326,7 @@
 		private System.Windows.Forms.Label MediaPlayer_Label_AudioName;
 		private System.Windows.Forms.Label MediaPlayer_Label_VolumeValue;
 		private System.Windows.Forms.Label MediaPlayer_Label_AudioTime;
-		private System.Windows.Forms.Timer MediaPlayer_Timer_AudioTime;
+		private System.Windows.Forms.Timer OnAudioTimeChanged;
 		private System.Windows.Forms.TrackBar MediaPlayer_TrackBar_AudioTime;
 	}
 }

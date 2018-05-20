@@ -51,7 +51,7 @@ namespace jogo_da_velha
 				}
 				else
 				{
-					MediaPlayer_Timer_AudioTime.Start();
+					OnAudioTimeChanged.Start();
 
 					OnVolumeChange();
 				}
@@ -219,18 +219,22 @@ namespace jogo_da_velha
 				{
 					button.Text = "O";
 				}
-
+                
                 matrizBattle[posX, posY] = button;
 
 				button.Enabled = false;
 			}
-
+            
             // Verifica vitoria humano
             if (GameLogic.CheckVictory(matrizBattle))
             {
                 MessageBox.Show("Humano venceu!");
-                OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
-                return;
+
+				OnGameReset();
+
+				// TODO: Som de VITÓRIA e MessageBox personalizada.
+
+				return;
             }
 
             if (button.Text.Equals("X"))
@@ -241,13 +245,17 @@ namespace jogo_da_velha
 			{
                 GameLogic.EnemyMovement("X", matrizBattle, posX, posY);
             }
-
+            
             // Verifica vitoria computador
             if (GameLogic.CheckVictory(matrizBattle))
             {
                 MessageBox.Show("Computador venceu!");
-                OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
-                return;
+
+				OnGameReset();
+
+				// TODO: Som de DERROTA e MessageBox personalizada.
+
+				return;
             }
 
         }
@@ -255,7 +263,7 @@ namespace jogo_da_velha
 
 
 
-		// AudioPlayer
+		// MediaPlayer
 		private void MediaPlayer_Button_PlayPause_Click(object sender, EventArgs e)
 		{
 			if (audioPaused)
@@ -278,14 +286,14 @@ namespace jogo_da_velha
 
 		private void MediaPlayer_Button_NextMusic_Click(object sender, EventArgs e)
 		{
-			audioPlayer.NextAudio();
+			audioPlayer.Next();
 
 			MediaPlayer_Button_PlayPause.Text = "❚❚";
 		}
 
 		private void MediaPlayer_Button_LastMusic_Click(object sender, EventArgs e)
 		{
-			audioPlayer.LastAudio();
+			audioPlayer.Back();
 
 			MediaPlayer_Button_PlayPause.Text = "❚❚";
 		}
@@ -315,7 +323,7 @@ namespace jogo_da_velha
 
 
 
-		// AudioPlayer Events
+		// MediaPlayer Events
 		private void OnVolumeChange()
 		{
 			audioPlayer.SetVolume(MediaPlayer_TrackBar_Volume.Value);

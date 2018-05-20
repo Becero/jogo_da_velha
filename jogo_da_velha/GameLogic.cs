@@ -1,8 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ *	GameLogic.cs
+ *	Author: Carlos Alberto
+ *  Description: Game Battlefield Logic.
+ *	Date: 2018-05-17
+ *	Modified: 2018-05-17
+ */
+
+using System;
 using System.Windows.Forms;
 
 namespace jogo_da_velha
