@@ -37,6 +37,12 @@ namespace jogo_da_velha
                 }
             }
 
+            if(countPossiblePositions == 0)
+            {
+                MessageBox.Show("Empate!");
+                return;
+            }
+
             // Cria um vetor com qtd de posicoes dinamicas
             possibleMovements = new Control[countPossiblePositions];
 
@@ -60,17 +66,11 @@ namespace jogo_da_velha
                 }
             }
 
-            /*
-             * 
-             * TODO - Selecionar uma das casas disponiveis para fazer o proximo movimento
-             * Se for o primeiro movimento, é random se nao for precisa verificar se o inimigo esta pra vencer ou
-             * se o computador esta pra vencer, antes de tomar a decisao
-             * 
-             */
-
             // Faz jogada aleatoria
             possibleMovements[randomPosition].Text = symbol;
             possibleMovements[randomPosition].Enabled = false;
+
+
         }
 
         // Verifica se houve vitória
