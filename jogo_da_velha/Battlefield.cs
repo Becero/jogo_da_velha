@@ -239,11 +239,11 @@ namespace jogo_da_velha
 
             if (button.Text.Equals("X"))
 			{
-                GameLogic.EnemyMovement("O", matrizBattle, posX, posY);
+                GameLogic.EnemyMovement("O", matrizBattle);
             }
 			else
 			{
-                GameLogic.EnemyMovement("X", matrizBattle, posX, posY);
+                GameLogic.EnemyMovement("X", matrizBattle);
             }
             
             // Verifica vitoria computador
