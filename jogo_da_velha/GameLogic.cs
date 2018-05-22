@@ -25,10 +25,13 @@ namespace jogo_da_velha
             Random random = new Random();
             int randomPosition;
 
+            int i = 0;
+            int j = 0;
+
             // Verifica quais casa estao vazia
-            for (int i = 0; i < 3; i++)
+            for (i = 0; i < 3; i++)
             {
-                for (int j = 0; j < 3; j++)
+                for (j = 0; j < 3; j++)
                 {
                     if (bf[i, j].Text.Equals(""))
                     {
@@ -53,9 +56,9 @@ namespace jogo_da_velha
             countPossiblePositions = 0;
 
             // Preenche o vetor com os campos livres
-            for (int i = 0; i < 3; i++)
+            for (i = 0; i < 3; i++)
             {
-                for (int j = 0; j < 3; j++)
+                for (j = 0; j < 3; j++)
                 {
                     if (bf[i, j].Text.Equals(""))
                     {
@@ -66,9 +69,87 @@ namespace jogo_da_velha
                 }
             }
 
+            // Controlador das jogadas do humano
+            int countHumanSelection = 0;
+            Control freePosIAplay = new Control();            
+
+            // Checa as linhas
+            for (i = 0; i < 3; i++)
+            {
+                for (j = 0; j < 3; j++)
+                {
+                    // posicao vazia
+                    if (bf[i, j].Text.Equals(""))
+                    {
+                        freePosIAplay = bf[i, j];
+                    }
+                    else
+                    {
+                        if (!bf[i, j].Text.Equals(symbol))
+                        {
+                            countHumanSelection++;
+                        }                        
+                    }
+                }
+
+                // Se humano marcou 2 casas na mesma linha, IA defende
+                if (countHumanSelection == 2)
+                {
+                    freePosIAplay.Text = symbol;
+                    freePosIAplay.Enabled = false;
+                    return;
+                }
+                else
+                {
+                    // Reinicia a contagem para a próxima linha
+                    countHumanSelection = 0;
+                }
+
+            }
+
+            countHumanSelection = 0;
+                        
+            // Verifica colunas
+            for (i = 0; i < 3; i++)
+            {
+                for (j = 0; j < 3; j++)
+                {
+                    // posicao vazia
+                    if (bf[j, i].Text.Equals(""))
+                    {
+                        freePosIAplay = bf[j, i];
+                    }
+                    else
+                    {
+                        // Verifica se o simbolo eh diferente
+                        if (!bf[j, i].Text.Equals(symbol))
+                        {
+                            countHumanSelection++;
+                        }                        
+                    }
+                }
+
+                // Se humano marcou 2 casas na mesma linha, IA defende
+                if (countHumanSelection == 2)
+                {
+                    freePosIAplay.Text = symbol;
+                    freePosIAplay.Enabled = false;
+                    return;
+                }
+                else
+                {
+                    // Reinicia a contagem para a próxima linha
+                    countHumanSelection = 0;
+                }
+            }
+
+            // Se a IA nao precisar tomar nenhuma decisao, faz uma jogada aleatoria
+            possibleMovements[randomPosition].Text = symbol;
+            possibleMovements[randomPosition].Enabled = false;
+
             // percepcao X
 
-            if (bf[0, 0].Text.Equals("X") && bf[0, 1].Text.Equals("X"))
+            /*if (bf[0, 0].Text.Equals("X") && bf[0, 1].Text.Equals("X"))
             {
                 bf[0, 2].Text = symbol;
                 bf[0, 2].Enabled = false;
