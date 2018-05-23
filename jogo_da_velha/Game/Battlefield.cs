@@ -174,7 +174,7 @@ namespace jogo_da_velha.Game
 
 		private void OnGameTerminated(bool isVictory)
 		{
-			if (isVictory && File.Exists("sounds/victory.mp3"))
+			if (File.Exists("sounds/victory.mp3") || File.Exists("sounds/defeat.mp3"))
 			{
 				audioPlayer.Pause();
 
@@ -182,7 +182,14 @@ namespace jogo_da_velha.Game
 
 				audioPlayerTemp.SetVolume(MediaPlayer_TrackBar_Volume.Value);
 
-				audioPlayerTemp.Stream("sounds/victory.mp3");
+				if (isVictory)
+				{
+					audioPlayerTemp.Stream("sounds/victory.mp3");
+				}
+				else
+				{
+					audioPlayerTemp.Stream("sounds/defeat.mp3");
+				}
 			}
 		}
 
