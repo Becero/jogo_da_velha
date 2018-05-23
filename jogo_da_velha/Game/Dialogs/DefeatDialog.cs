@@ -18,7 +18,7 @@ namespace jogo_da_velha.Game.Dialogs
 
 			MessageBoxManager.Register();
 
-			DialogResult resetDialog = MessageBox.Show
+			MessageBox.Show
 			(
 				"          VOCÊ PERDEU! PARABÉNS!          ",
 				"DERROTA", MessageBoxButtons.OK, MessageBoxIcon.Information
