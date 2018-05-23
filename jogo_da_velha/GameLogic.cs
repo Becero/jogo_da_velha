@@ -143,6 +143,30 @@ namespace jogo_da_velha
                 }
             }
 
+            // Diagonais
+            if ((!bf[0, 2].Text.Equals(symbol) && (!bf[0, 2].Text.Equals(""))) &&
+                (!bf[1, 1].Text.Equals(symbol) && (!bf[1, 1].Text.Equals(""))))
+            {
+                bf[2, 0].Text = symbol;
+                bf[2, 0].Enabled = false;
+                return;
+            }
+            if ((!bf[0, 2].Text.Equals(symbol) && (!bf[0, 2].Text.Equals(""))) && 
+                (!bf[2, 0].Text.Equals(symbol) && (!bf[2, 0].Text.Equals(""))))
+            {
+                bf[1, 1].Text = symbol;
+                bf[1, 1].Enabled = false;
+                return;
+            }
+            if ((!bf[2, 0].Text.Equals(symbol) && (!bf[2, 0].Text.Equals(""))) &&
+                (!bf[1, 1].Text.Equals(symbol) && (!bf[1, 1].Text.Equals(""))))
+            {
+                bf[0, 2].Text = symbol;
+                bf[0, 2].Enabled = false;
+                return;
+            }
+
+
             // Se a IA nao precisar tomar nenhuma decisao, faz uma jogada aleatoria
             possibleMovements[randomPosition].Text = symbol;
             possibleMovements[randomPosition].Enabled = false;
