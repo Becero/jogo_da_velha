@@ -9,6 +9,8 @@
 using System;
 using System.Windows.Forms;
 
+using jogo_da_velha.Game.Dialogs;
+
 namespace jogo_da_velha.Game
 {
     class GameLogic
@@ -40,9 +42,10 @@ namespace jogo_da_velha.Game
                 }
             }
 
-            if(countPossiblePositions == 0)
+            if (countPossiblePositions == 0)
             {
-                MessageBox.Show("Empate!");
+				DrawDialog.Create();
+
                 return;
             }
 
