@@ -61,8 +61,10 @@
       <DependentUpon>LineSeparator.cs</DependentUpon>
     </Compile>
     <Compile Include="Components\MessageBoxManager.cs" />
+    <Compile Include="Game\Dialogs\DefeatDialog.cs" />
     <Compile Include="Game\Dialogs\GameResetDialog.cs" />
     <Compile Include="Game\Dialogs\SymbolSelectDialog.cs" />
+    <Compile Include="Game\Dialogs\VictoryDialog.cs" />
     <Compile Include="Game\GameLogic.cs" />
     <Compile Include="Modules\AudioPlayer.cs" />
     <Compile Include="Interfaces\IOnAudioChange.cs" />

@@ -216,7 +216,7 @@ namespace jogo_da_velha.Game
             {
 				OnGameTerminated(true);
 
-                MessageBox.Show("Humano venceu!");
+				VictoryDialog.Create();
 
 				OnGameReset();
 
@@ -237,7 +237,7 @@ namespace jogo_da_velha.Game
             {
 				OnGameTerminated(false);
 
-				MessageBox.Show("Computador venceu!");
+				DefeatDialog.Create();
 
 				OnGameReset();
 
