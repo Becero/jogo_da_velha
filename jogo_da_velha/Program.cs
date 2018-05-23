@@ -9,7 +9,7 @@
 using System;
 using System.Windows.Forms;
 
-using jogo_da_velha.Game
+using jogo_da_velha.Game;
 
 namespace jogo_da_velha
 {

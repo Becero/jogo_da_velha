@@ -13,17 +13,17 @@ using System.Windows.Forms;
 
 using jogo_da_velha.Modules;
 using jogo_da_velha.Interfaces;
+using jogo_da_velha.Game.Dialogs;
 
 namespace jogo_da_velha.Game
 {
     public partial class Battlefield : Form, IOnAudioChange
     {
-        // Resources
-        private String playerSymbol;
-        private Control[,] battleMatrix = new Control[3,3];
+		// Resources
+		private bool gameStarted;
+		private String playerSymbol;
+		private Control[,] battleMatrix;
 
-		// Check
-		private bool gameStarted = false;
 
 		// AudioPlayer Resources
 		private bool audioPaused;
@@ -38,36 +38,11 @@ namespace jogo_da_velha.Game
 		{
 			InitializeComponent();
 
-			// Initialize AudioPlayer
-			try
-			{
-				if (!Directory.Exists("Music/"))
-				{
-					Directory.CreateDirectory("Music/");
-				}
+			OnPlayerStart();
 
-				audioPlayer = new AudioPlayer(this, Directory.GetFiles("Music/").ToList());
+			gameStarted = false;
 
-				// Initialize AudioPlayer Stream
-				if (!audioPlayer.Stream())
-				{
-					MediaPlayer_Label_AudioName.Text = "Nenhuma música encontrada na pasta 'Music'. Você pode adicionar músicas nessa pasta para escutar durante o jogo.";
-				}
-				else
-				{
-					OnAudioTimeChanged.Start();
-
-					OnVolumeChange();
-				}
-			}
-			catch (IOException e)
-			{
-				Console.WriteLine(e);
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
-			}
+			battleMatrix = new Control[3, 3];
 		}
 
 
@@ -167,19 +142,7 @@ namespace jogo_da_velha.Game
 
 		private void OnSymbolSelect()
 		{
-			MessageBoxManager.No = "O";
-			MessageBoxManager.Yes = "X";
-
-			MessageBoxManager.Register();
-
-			DialogResult symbolDialog = MessageBox.Show
-			(
-				"Selecione um símbolo.",
-				"Jogo da Velha", MessageBoxButtons.YesNo, MessageBoxIcon.Information
-			);
-			MessageBoxManager.Unregister();
-
-			if (symbolDialog == DialogResult.Yes)
+			if (SymbolSelectDialog.Create() == DialogResult.Yes)
 			{
 				playerSymbol = "X";
 			}
@@ -193,24 +156,11 @@ namespace jogo_da_velha.Game
 
 		private void OnGameReset()
 		{
-			MessageBoxManager.No = "Não";
-			MessageBoxManager.Yes = "Sim";
-
-			MessageBoxManager.Register();
-
-			DialogResult resetDialog = MessageBox.Show
-			(
-				"Deseja começar um novo jogo?",
-				"Jogo da Velha", MessageBoxButtons.YesNo, MessageBoxIcon.Question
-			);
-			MessageBoxManager.Unregister();
-
-			if (resetDialog == DialogResult.Yes)
+			if (GameResetDialog.Create() == DialogResult.Yes)
 			{
 				OnSymbolSelect();
 			}
 
-			// AudioPlayer Transition
 			if (audioPlayerTemp != null)
 			{
 				audioPlayerTemp.Stop();
@@ -352,6 +302,38 @@ namespace jogo_da_velha.Game
 
 
 		// MediaPlayer Events
+		private void OnPlayerStart()
+		{
+			try
+			{
+				if (!Directory.Exists("Music/"))
+				{
+					Directory.CreateDirectory("Music/");
+				}
+
+				audioPlayer = new AudioPlayer(this, Directory.GetFiles("Music/").ToList());
+
+				if (!audioPlayer.Stream())
+				{
+					MediaPlayer_Label_AudioName.Text = "Nenhuma música encontrada na pasta 'Music'. Você pode adicionar músicas nessa pasta para escutar durante o jogo.";
+				}
+				else
+				{
+					OnAudioTimeChanged.Start();
+
+					OnVolumeChange();
+				}
+			}
+			catch (IOException e)
+			{
+				Console.WriteLine(e);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
+		}
+
 		private void OnVolumeChange()
 		{
 			audioPlayer.SetVolume(MediaPlayer_TrackBar_Volume.Value);
