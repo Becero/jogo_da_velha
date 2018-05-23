@@ -71,10 +71,74 @@ namespace jogo_da_velha.Game
                     }
                 }
             }
-
+            
             // Controlador das jogadas do humano
             int countHumanSelection = 0;
-            Control freePosIAplay = new Control();            
+            Control freePosIAplay = new Control();
+
+            // Primeira Diagonal
+            if ((!bf[0, 0].Text.Equals(symbol) && (!bf[0, 0].Text.Equals(""))) &&
+                (!bf[1, 1].Text.Equals(symbol) && (!bf[1, 1].Text.Equals(""))))
+            {
+                if (bf[2, 2].Text.Equals(""))
+                {
+                    bf[2, 2].Text = symbol;
+                    bf[2, 2].Enabled = false;
+                    return;
+                }                
+            }
+            if ((!bf[0, 0].Text.Equals(symbol) && (!bf[0, 0].Text.Equals(""))) &&
+                (!bf[2, 2].Text.Equals(symbol) && (!bf[2, 2].Text.Equals(""))))
+            {
+                if (bf[1, 1].Text.Equals(""))
+                {
+                    bf[1, 1].Text = symbol;
+                    bf[1, 1].Enabled = false;
+                    return;
+                }
+            }
+            if ((!bf[2, 2].Text.Equals(symbol) && (!bf[2, 2].Text.Equals(""))) &&
+                (!bf[1, 1].Text.Equals(symbol) && (!bf[1, 1].Text.Equals(""))))
+            {
+                if (bf[0, 0].Text.Equals(""))
+                {
+                    bf[0, 0].Text = symbol;
+                    bf[0, 0].Enabled = false;
+                    return;
+                }
+            }
+
+            // Segunda Diagonal
+            if ((!bf[0, 2].Text.Equals(symbol) && (!bf[0, 2].Text.Equals(""))) &&
+                (!bf[1, 1].Text.Equals(symbol) && (!bf[1, 1].Text.Equals(""))))
+            {
+                if (bf[2, 0].Text.Equals(""))
+                {
+                    bf[2, 0].Text = symbol;
+                    bf[2, 0].Enabled = false;
+                    return;
+                }
+            }
+            if ((!bf[0, 2].Text.Equals(symbol) && (!bf[0, 2].Text.Equals(""))) &&
+                (!bf[2, 0].Text.Equals(symbol) && (!bf[2, 0].Text.Equals(""))))
+            {
+                if (bf[1, 1].Text.Equals(""))
+                {
+                    bf[1, 1].Text = symbol;
+                    bf[1, 1].Enabled = false;
+                    return;
+                }
+            }
+            if ((!bf[2, 0].Text.Equals(symbol) && (!bf[2, 0].Text.Equals(""))) &&
+                (!bf[1, 1].Text.Equals(symbol) && (!bf[1, 1].Text.Equals(""))))
+            {
+                if (bf[0, 2].Text.Equals(""))
+                {
+                    bf[0, 2].Text = symbol;
+                    bf[0, 2].Enabled = false;
+                    return;
+                }
+            }
 
             // Checa as linhas
             for (i = 0; i < 3; i++)
@@ -91,12 +155,12 @@ namespace jogo_da_velha.Game
                         if (!bf[i, j].Text.Equals(symbol))
                         {
                             countHumanSelection++;
-                        }                        
+                        }
                     }
                 }
 
-                // Se humano marcou 2 casas na mesma linha, IA defende
-                if (countHumanSelection == 2)
+                // Se humano marcou 2 casas na mesma linha e a posicao de defesa esta livre, IA defende
+                if (countHumanSelection == 2 && freePosIAplay.Text.Equals(""))
                 {
                     freePosIAplay.Text = symbol;
                     freePosIAplay.Enabled = false;
@@ -111,7 +175,7 @@ namespace jogo_da_velha.Game
             }
 
             countHumanSelection = 0;
-                        
+
             // Verifica colunas
             for (i = 0; i < 3; i++)
             {
@@ -128,12 +192,12 @@ namespace jogo_da_velha.Game
                         if (!bf[j, i].Text.Equals(symbol))
                         {
                             countHumanSelection++;
-                        }                        
+                        }
                     }
                 }
 
-                // Se humano marcou 2 casas na mesma linha, IA defende
-                if (countHumanSelection == 2)
+                // Se humano marcou 2 casas na mesma linha e a posicao de defesa esta livre, IA defende
+                if (countHumanSelection == 2 && freePosIAplay.Text.Equals(""))
                 {
                     freePosIAplay.Text = symbol;
                     freePosIAplay.Enabled = false;
@@ -146,33 +210,19 @@ namespace jogo_da_velha.Game
                 }
             }
 
-            // Diagonais
-            if ((!bf[0, 2].Text.Equals(symbol) && (!bf[0, 2].Text.Equals(""))) &&
-                (!bf[1, 1].Text.Equals(symbol) && (!bf[1, 1].Text.Equals(""))))
-            {
-                bf[2, 0].Text = symbol;
-                bf[2, 0].Enabled = false;
-                return;
-            }
-            if ((!bf[0, 2].Text.Equals(symbol) && (!bf[0, 2].Text.Equals(""))) && 
-                (!bf[2, 0].Text.Equals(symbol) && (!bf[2, 0].Text.Equals(""))))
+            // Se o centro estiver livre, seleciona (melhor posicao)
+            if (bf[1, 1].Text.Equals(""))
             {
                 bf[1, 1].Text = symbol;
                 bf[1, 1].Enabled = false;
                 return;
             }
-            if ((!bf[2, 0].Text.Equals(symbol) && (!bf[2, 0].Text.Equals(""))) &&
-                (!bf[1, 1].Text.Equals(symbol) && (!bf[1, 1].Text.Equals(""))))
+            else
             {
-                bf[0, 2].Text = symbol;
-                bf[0, 2].Enabled = false;
-                return;
+                // Se a IA nao precisar tomar nenhuma decisao, faz uma jogada aleatoria
+                possibleMovements[randomPosition].Text = symbol;
+                possibleMovements[randomPosition].Enabled = false;
             }
-
-
-            // Se a IA nao precisar tomar nenhuma decisao, faz uma jogada aleatoria
-            possibleMovements[randomPosition].Text = symbol;
-            possibleMovements[randomPosition].Enabled = false;
 
             // percepcao X
 
@@ -506,8 +556,6 @@ namespace jogo_da_velha.Game
 
 
 
-
-
         // Verifica se houve vitória
         public static bool CheckVictory(Control[,] bf)
         {
@@ -521,14 +569,15 @@ namespace jogo_da_velha.Game
                 (bf[0, 2].Text.Equals("X") && bf[1, 1].Text.Equals("X") && bf[2, 0].Text.Equals("X")))
             {
                 return true;
-            } else if ((bf[0, 0].Text.Equals("O") && bf[0, 1].Text.Equals("O") && bf[0, 2].Text.Equals("O")) ||
-                (bf[1, 0].Text.Equals("O") && bf[1, 1].Text.Equals("O") && bf[1, 2].Text.Equals("O")) ||
-                (bf[2, 0].Text.Equals("O") && bf[2, 1].Text.Equals("O") && bf[2, 2].Text.Equals("O")) ||
-                (bf[0, 0].Text.Equals("O") && bf[1, 0].Text.Equals("O") && bf[2, 0].Text.Equals("O")) ||
-                (bf[0, 1].Text.Equals("O") && bf[1, 1].Text.Equals("O") && bf[2, 1].Text.Equals("O")) ||
-                (bf[0, 2].Text.Equals("O") && bf[1, 2].Text.Equals("O") && bf[2, 2].Text.Equals("O")) ||
-                (bf[0, 0].Text.Equals("O") && bf[1, 1].Text.Equals("O") && bf[2, 2].Text.Equals("O")) ||
-                (bf[0, 2].Text.Equals("O") && bf[1, 1].Text.Equals("O") && bf[2, 0].Text.Equals("O")))
+            }
+            else if ((bf[0, 0].Text.Equals("O") && bf[0, 1].Text.Equals("O") && bf[0, 2].Text.Equals("O")) ||
+              (bf[1, 0].Text.Equals("O") && bf[1, 1].Text.Equals("O") && bf[1, 2].Text.Equals("O")) ||
+              (bf[2, 0].Text.Equals("O") && bf[2, 1].Text.Equals("O") && bf[2, 2].Text.Equals("O")) ||
+              (bf[0, 0].Text.Equals("O") && bf[1, 0].Text.Equals("O") && bf[2, 0].Text.Equals("O")) ||
+              (bf[0, 1].Text.Equals("O") && bf[1, 1].Text.Equals("O") && bf[2, 1].Text.Equals("O")) ||
+              (bf[0, 2].Text.Equals("O") && bf[1, 2].Text.Equals("O") && bf[2, 2].Text.Equals("O")) ||
+              (bf[0, 0].Text.Equals("O") && bf[1, 1].Text.Equals("O") && bf[2, 2].Text.Equals("O")) ||
+              (bf[0, 2].Text.Equals("O") && bf[1, 1].Text.Equals("O") && bf[2, 0].Text.Equals("O")))
             {
                 return true;
             }
