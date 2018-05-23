@@ -9,7 +9,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace jogo_da_velha
+namespace jogo_da_velha.Game
 {
     class GameLogic
     {

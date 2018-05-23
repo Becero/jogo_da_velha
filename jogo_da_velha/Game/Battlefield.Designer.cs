@@ -1,4 +1,4 @@
-﻿namespace jogo_da_velha
+﻿namespace jogo_da_velha.Game
 {
     partial class Battlefield
     {

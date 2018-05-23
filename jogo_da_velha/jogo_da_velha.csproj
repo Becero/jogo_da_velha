@@ -48,10 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Battlefield.cs">
+    <Compile Include="Game\Battlefield.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Battlefield.Designer.cs">
+    <Compile Include="Game\Battlefield.Designer.cs">
       <DependentUpon>Battlefield.cs</DependentUpon>
     </Compile>
     <Compile Include="Components\LineSeparator.cs">
@@ -61,12 +61,12 @@
       <DependentUpon>LineSeparator.cs</DependentUpon>
     </Compile>
     <Compile Include="Components\MessageBoxManager.cs" />
-    <Compile Include="GameLogic.cs" />
-    <Compile Include="Helpers\AudioPlayer.cs" />
+    <Compile Include="Game\GameLogic.cs" />
+    <Compile Include="Modules\AudioPlayer.cs" />
     <Compile Include="Interfaces\IOnAudioChange.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Battlefield.resx">
+    <EmbeddedResource Include="Game\Battlefield.resx">
       <DependentUpon>Battlefield.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Components\LineSeparator.resx">

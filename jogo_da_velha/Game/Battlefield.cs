@@ -2,30 +2,34 @@
  *	Battlefield.cs
  *	Author: Lucas Cota, Carlos Alberto, Caio Souza, Gabriel Werneck
  *  Description: Game Battlefield.
- *	Date: 2018-05-16
- *	Modified: 2018-05-16
+ *	Date: 2018-05-23
+ *	Modified: 2018-05-23
  */
 
 using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using jogo_da_velha.Helpers;
+
+using jogo_da_velha.Modules;
 using jogo_da_velha.Interfaces;
 
-namespace jogo_da_velha
+namespace jogo_da_velha.Game
 {
     public partial class Battlefield : Form, IOnAudioChange
     {
         // Resources
         private String playerSymbol;
-        private bool gameStarted = false;
-        private Control[,] matrizBattle = new Control[3,3];
+        private Control[,] battleMatrix = new Control[3,3];
 
+		// Check
+		private bool gameStarted = false;
 
 		// AudioPlayer Resources
 		private bool audioPaused;
-		private AudioPlayer audioPlayer; 
+		private AudioPlayer audioPlayer;
+		private AudioPlayer audioPlayerTemp;
+
 
 
 
@@ -152,9 +156,9 @@ namespace jogo_da_velha
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    matrizBattle[i, j] = gameButtons[bt];
-                    matrizBattle[i, j].Text = "";
-                    matrizBattle[i, j].Enabled = true;
+                    battleMatrix[i, j] = gameButtons[bt];
+                    battleMatrix[i, j].Text = "";
+                    battleMatrix[i, j].Enabled = true;
 
                     bt++;
                 }
@@ -205,6 +209,31 @@ namespace jogo_da_velha
 			{
 				OnSymbolSelect();
 			}
+
+			// AudioPlayer Transition
+			if (audioPlayerTemp != null)
+			{
+				audioPlayerTemp.Stop();
+			}
+
+			if (!audioPaused)
+			{
+				audioPlayer.Play();
+			}
+		}
+
+		private void OnGameTerminated(bool isVictory)
+		{
+			if (isVictory && File.Exists("sounds/victory.mp3"))
+			{
+				audioPlayer.Pause();
+
+				audioPlayerTemp = new AudioPlayer();
+
+				audioPlayerTemp.SetVolume(MediaPlayer_TrackBar_Volume.Value);
+
+				audioPlayerTemp.Stream("sounds/victory.mp3");
+			}
 		}
 
 		private void OnButtonClick(Button button, int posX, int posY)
@@ -220,44 +249,43 @@ namespace jogo_da_velha
 					button.Text = "O";
 				}
                 
-                matrizBattle[posX, posY] = button;
+                battleMatrix[posX, posY] = button;
 
 				button.Enabled = false;
 			}
             
-            // Verifica vitoria humano
-            if (GameLogic.CheckVictory(matrizBattle))
+            // Human Victory
+            if (GameLogic.CheckVictory(battleMatrix))
             {
+				OnGameTerminated(true);
+
                 MessageBox.Show("Humano venceu!");
 
 				OnGameReset();
-
-				// TODO: Som de VITÓRIA e MessageBox personalizada.
 
 				return;
             }
 
             if (button.Text.Equals("X"))
 			{
-                GameLogic.EnemyMovement("O", matrizBattle);
+                GameLogic.EnemyMovement("O", battleMatrix);
             }
 			else
 			{
-                GameLogic.EnemyMovement("X", matrizBattle);
+                GameLogic.EnemyMovement("X", battleMatrix);
             }
             
-            // Verifica vitoria computador
-            if (GameLogic.CheckVictory(matrizBattle))
+            // CPU Victory
+            if (GameLogic.CheckVictory(battleMatrix))
             {
-                MessageBox.Show("Computador venceu!");
+				OnGameTerminated(false);
+
+				MessageBox.Show("Computador venceu!");
 
 				OnGameReset();
 
-				// TODO: Som de DERROTA e MessageBox personalizada.
-
 				return;
             }
-
         }
 
 

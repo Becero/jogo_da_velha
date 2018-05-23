@@ -12,7 +12,7 @@ using NAudio.Wave;
 using jogo_da_velha.Interfaces;
 using System.Collections.Generic;
 
-namespace jogo_da_velha.Helpers
+namespace jogo_da_velha.Modules
 {
 	class AudioPlayer
 	{
@@ -30,11 +30,17 @@ namespace jogo_da_velha.Helpers
 
 
 
+		// Default Constructor
+		public AudioPlayer()
+		{
+
+		}
 
 		// Playlist Constructor
 		public AudioPlayer(IOnAudioChange onAudioChange, List<string> audioPlaylist)
 		{
 			this.onAudioChange = onAudioChange;
+
 			this.audioPlaylist = new List<string>(audioPlaylist);
 		}
 
@@ -63,13 +69,13 @@ namespace jogo_da_velha.Helpers
 			if (!playlistManualState)
 			{
 				playlistPosition++;
-				waveStream = new AudioFileReader(audioPlaylist[playlistPosition]);
 			}
 			else
 			{
 				playlistManualState = false;
-				waveStream = new AudioFileReader(audioPlaylist[playlistPosition]);
 			}
+
+			waveStream = new AudioFileReader(audioPlaylist[playlistPosition]);
 
 			audioPlayer.Init(waveStream);
 			audioPlayer.PlaybackStopped += (sender, evn) => { Stream(); };
@@ -78,6 +84,17 @@ namespace jogo_da_velha.Helpers
 			onAudioChange.AudioChanged();
 
 			return true;
+		}
+
+		public void Stream(string sound)
+		{
+			audioPlayer = new WaveOutEvent();
+
+			waveStream = new AudioFileReader(sound);
+
+			audioPlayer.Init(waveStream);
+
+			audioPlayer.Play();
 		}
 
 		public void Play()
@@ -93,6 +110,14 @@ namespace jogo_da_velha.Helpers
 			if (audioPlayer != null)
 			{
 				audioPlayer.Pause();
+			}
+		}
+
+		public void Stop()
+		{
+			if (audioPlayer != null)
+			{
+				audioPlayer.Stop();
 			}
 		}
 
@@ -158,6 +183,11 @@ namespace jogo_da_velha.Helpers
 			}
 
 			return null;
+		}
+
+		public PlaybackState GetAudioState()
+		{
+			return audioPlayer.PlaybackState;
 		}
 
 		public TimeSpan GetAudioTime()
