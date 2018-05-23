@@ -68,7 +68,14 @@ namespace jogo_da_velha.Modules
 
 			if (!playlistManualState)
 			{
-				playlistPosition++;
+				if (playlistPosition != audioPlaylist.Count - 1)
+				{
+					playlistPosition++;
+				}
+				else
+				{
+					playlistPosition = 0;
+				}
 			}
 			else
 			{
