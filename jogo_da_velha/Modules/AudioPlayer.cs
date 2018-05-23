@@ -64,8 +64,6 @@ namespace jogo_da_velha.Modules
 				return false;
 			}
 
-			audioPlayer = new WaveOutEvent();
-
 			if (!playlistManualState)
 			{
 				if (playlistPosition != audioPlaylist.Count - 1)
@@ -82,12 +80,12 @@ namespace jogo_da_velha.Modules
 				playlistManualState = false;
 			}
 
+			audioPlayer = new WaveOutEvent();
 			waveStream = new AudioFileReader(audioPlaylist[playlistPosition]);
+			audioPlayer.PlaybackStopped += (sender, evn) => { Stream(); };
 
 			audioPlayer.Init(waveStream);
-			audioPlayer.PlaybackStopped += (sender, evn) => { Stream(); };
 			audioPlayer.Play();
-
 			onAudioChange.AudioChanged();
 
 			return true;
@@ -96,11 +94,15 @@ namespace jogo_da_velha.Modules
 		public void Stream(string sound)
 		{
 			audioPlayer = new WaveOutEvent();
-
 			waveStream = new AudioFileReader(sound);
 
-			audioPlayer.Init(waveStream);
+			audioPlayer.PlaybackStopped += (sender, evn) =>
+			{
+				waveStream.Dispose();
+				audioPlayer.Dispose();
+			};
 
+			audioPlayer.Init(waveStream);
 			audioPlayer.Play();
 		}
 
