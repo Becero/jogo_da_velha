@@ -22,6 +22,7 @@ namespace jogo_da_velha.Game
 		// Resources
 		private bool gameStarted;
 		private String playerSymbol;
+        private String IAsymbol;
 		private Control[,] battleMatrix;
 
 
@@ -145,10 +146,12 @@ namespace jogo_da_velha.Game
 			if (SymbolSelectDialog.Create() == DialogResult.Yes)
 			{
 				playerSymbol = "X";
+                IAsymbol = "O";
 			}
 			else
 			{
 				playerSymbol = "O";
+                IAsymbol = "X";
 			}
 
 			OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
@@ -195,24 +198,19 @@ namespace jogo_da_velha.Game
 
 		private void OnButtonClick(Button button, int posX, int posY)
 		{
-			if (button.Enabled)
+            if (button.Enabled)
 			{
-				if (playerSymbol.Equals("X"))
-				{
-					button.Text = "X";
-				}
-				else
-				{
-					button.Text = "O";
-				}
-                
+				button.Text = playerSymbol;
+				
                 battleMatrix[posX, posY] = button;
 
 				button.Enabled = false;
 			}
+
+            
             
             // Human Victory
-            if (GameLogic.CheckVictory(battleMatrix))
+            if (GameLogic.CheckVictory(battleMatrix, IAsymbol))
             {
 				OnGameTerminated(true);
 
@@ -223,17 +221,10 @@ namespace jogo_da_velha.Game
 				return;
             }
 
-            if (button.Text.Equals("X"))
-			{
-                GameLogic.EnemyMovement("O", battleMatrix);
-            }
-			else
-			{
-                GameLogic.EnemyMovement("X", battleMatrix);
-            }
+            GameLogic.EnemyMovement(IAsymbol, battleMatrix);
             
             // CPU Victory
-            if (GameLogic.CheckVictory(battleMatrix))
+            if (GameLogic.CheckVictory(battleMatrix, IAsymbol))
             {
 				OnGameTerminated(false);
 

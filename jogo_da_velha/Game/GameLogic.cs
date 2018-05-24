@@ -30,7 +30,7 @@ namespace jogo_da_velha.Game
             int i = 0;
             int j = 0;
 
-            // Verifica quais casa estao vazia
+            // Verifica quais casa estao vazias e salva a qtd
             for (i = 0; i < 3; i++)
             {
                 for (j = 0; j < 3; j++)
@@ -75,33 +75,47 @@ namespace jogo_da_velha.Game
             // Controlador das jogadas do humano
             int countHumanSelection = 0;
             Control freePosIAplay = new Control();
-
+        
+            /*
+             * DIAGONAIS - Verifica cada possibilidade de vitória inimiga nas diagonais
+             */
             // Primeira Diagonal
+            // Esquerda superior e centro
             if ((!bf[0, 0].Text.Equals(symbol) && (!bf[0, 0].Text.Equals(""))) &&
                 (!bf[1, 1].Text.Equals(symbol) && (!bf[1, 1].Text.Equals(""))))
             {
+                // Verifica se direita inferior esta livre
                 if (bf[2, 2].Text.Equals(""))
                 {
+                    // Defende
                     bf[2, 2].Text = symbol;
                     bf[2, 2].Enabled = false;
                     return;
                 }                
             }
+
+            // Esquerda superior e direita inferior
             if ((!bf[0, 0].Text.Equals(symbol) && (!bf[0, 0].Text.Equals(""))) &&
                 (!bf[2, 2].Text.Equals(symbol) && (!bf[2, 2].Text.Equals(""))))
             {
+                // Verifica se centro esta livre
                 if (bf[1, 1].Text.Equals(""))
                 {
+                    // Defende
                     bf[1, 1].Text = symbol;
                     bf[1, 1].Enabled = false;
                     return;
                 }
             }
+
+            // Centro e direita inferior
             if ((!bf[2, 2].Text.Equals(symbol) && (!bf[2, 2].Text.Equals(""))) &&
                 (!bf[1, 1].Text.Equals(symbol) && (!bf[1, 1].Text.Equals(""))))
             {
+                // Verifica se esquerda superior esta livre
                 if (bf[0, 0].Text.Equals(""))
                 {
+                    // Defende
                     bf[0, 0].Text = symbol;
                     bf[0, 0].Enabled = false;
                     return;
@@ -109,38 +123,49 @@ namespace jogo_da_velha.Game
             }
 
             // Segunda Diagonal
+            // Direita superior e centro
             if ((!bf[0, 2].Text.Equals(symbol) && (!bf[0, 2].Text.Equals(""))) &&
                 (!bf[1, 1].Text.Equals(symbol) && (!bf[1, 1].Text.Equals(""))))
             {
+                // Verifica se esquerda inferior esta livre
                 if (bf[2, 0].Text.Equals(""))
                 {
+                    // Defende
                     bf[2, 0].Text = symbol;
                     bf[2, 0].Enabled = false;
                     return;
                 }
             }
+
+            // Direita superior e esquerda inferior
             if ((!bf[0, 2].Text.Equals(symbol) && (!bf[0, 2].Text.Equals(""))) &&
                 (!bf[2, 0].Text.Equals(symbol) && (!bf[2, 0].Text.Equals(""))))
             {
+                // Verifica se centro esta livre
                 if (bf[1, 1].Text.Equals(""))
                 {
+                    // Defende
                     bf[1, 1].Text = symbol;
                     bf[1, 1].Enabled = false;
                     return;
                 }
             }
+
+            // Esquerda inferior e centro
             if ((!bf[2, 0].Text.Equals(symbol) && (!bf[2, 0].Text.Equals(""))) &&
                 (!bf[1, 1].Text.Equals(symbol) && (!bf[1, 1].Text.Equals(""))))
             {
+                // Verifica se direita superior esta livre
                 if (bf[0, 2].Text.Equals(""))
                 {
+                    // Defende
                     bf[0, 2].Text = symbol;
                     bf[0, 2].Enabled = false;
                     return;
                 }
             }
 
-            // Checa as linhas
+            // Checa todas as linhas pra ver se tem chance do humano vencer
             for (i = 0; i < 3; i++)
             {
                 for (j = 0; j < 3; j++)
@@ -148,12 +173,15 @@ namespace jogo_da_velha.Game
                     // posicao vazia
                     if (bf[i, j].Text.Equals(""))
                     {
+                        // Armazena a posicao livre
                         freePosIAplay = bf[i, j];
                     }
                     else
                     {
+                        // Verifica se o simbolo na posicao é diferente do simbolo da IA
                         if (!bf[i, j].Text.Equals(symbol))
                         {
+                            // Sendo diferente, incrementa a contagem humana
                             countHumanSelection++;
                         }
                     }
@@ -174,9 +202,10 @@ namespace jogo_da_velha.Game
 
             }
 
+            // Reinicia contagem para a verificacao de colunas
             countHumanSelection = 0;
 
-            // Verifica colunas
+            // Verifica todas as colunas pra ver se tem chance do humano vencer
             for (i = 0; i < 3; i++)
             {
                 for (j = 0; j < 3; j++)
@@ -188,15 +217,16 @@ namespace jogo_da_velha.Game
                     }
                     else
                     {
-                        // Verifica se o simbolo eh diferente
+                        // Verifica se o simbolo na posicao é diferente do simbolo da IA
                         if (!bf[j, i].Text.Equals(symbol))
                         {
+                            // Sendo diferente, incrementa a contagem humana
                             countHumanSelection++;
                         }
                     }
                 }
 
-                // Se humano marcou 2 casas na mesma linha e a posicao de defesa esta livre, IA defende
+                // Se humano marcou 2 casas na mesma coluna e a posicao de defesa esta livre, IA defende
                 if (countHumanSelection == 2 && freePosIAplay.Text.Equals(""))
                 {
                     freePosIAplay.Text = symbol;
@@ -217,367 +247,28 @@ namespace jogo_da_velha.Game
                 bf[1, 1].Enabled = false;
                 return;
             }
+            // Se o centro ja foi selecionado, joga aleatoriamente
             else
             {
                 // Se a IA nao precisar tomar nenhuma decisao, faz uma jogada aleatoria
                 possibleMovements[randomPosition].Text = symbol;
                 possibleMovements[randomPosition].Enabled = false;
             }
-
-            // percepcao X
-
-            /*if (bf[0, 0].Text.Equals("X") && bf[0, 1].Text.Equals("X"))
-            {
-                bf[0, 2].Text = symbol;
-                bf[0, 2].Enabled = false;
-            }
-            if (bf[0, 1].Text.Equals("X") && bf[0, 2].Text.Equals("X"))
-            {
-                bf[0, 0].Text = symbol;
-                bf[0, 0].Enabled = false;
-            }
-            if (bf[0, 0].Text.Equals("X") && bf[0, 2].Text.Equals("X"))
-            {
-                bf[0, 1].Text = symbol;
-                bf[0, 1].Enabled = false;
-            }
-
-
-            if (bf[1, 0].Text.Equals("X") && bf[1, 1].Text.Equals("X"))
-            {
-                bf[1, 2].Text = symbol;
-                bf[1, 2].Enabled = false;
-            }
-            if (bf[1, 1].Text.Equals("X") && bf[1, 2].Text.Equals("X"))
-            {
-                bf[1, 0].Text = symbol;
-                bf[1, 0].Enabled = false;
-            }
-            if (bf[1, 0].Text.Equals("X") && bf[1, 2].Text.Equals("X"))
-            {
-                bf[1, 1].Text = symbol;
-                bf[1, 1].Enabled = false;
-            }
-
-
-            if (bf[2, 0].Text.Equals("X") && bf[2, 1].Text.Equals("X"))
-            {
-                bf[2, 2].Text = symbol;
-                bf[2, 2].Enabled = false;
-            }
-            if (bf[2, 1].Text.Equals("X") && bf[2, 2].Text.Equals("X"))
-            {
-                bf[2, 0].Text = symbol;
-                bf[2, 0].Enabled = false;
-            }
-            if (bf[2, 0].Text.Equals("X") && bf[2, 2].Text.Equals("X"))
-            {
-                bf[2, 1].Text = symbol;
-                bf[2, 1].Enabled = false;
-            }
-
-
-            if (bf[0, 0].Text.Equals("X") && bf[1, 0].Text.Equals("X"))
-            {
-                bf[2, 0].Text = symbol;
-                bf[2, 0].Enabled = false;
-            }
-            if (bf[1, 0].Text.Equals("X") && bf[2, 0].Text.Equals("X"))
-            {
-                bf[0, 0].Text = symbol;
-                bf[0, 0].Enabled = false;
-            }
-            if (bf[0, 0].Text.Equals("X") && bf[2, 0].Text.Equals("X"))
-            {
-                bf[1, 0].Text = symbol;
-                bf[1, 0].Enabled = false;
-            }
-
-
-            if (bf[0, 1].Text.Equals("X") && bf[1, 1].Text.Equals("X"))
-            {
-                bf[2, 1].Text = symbol;
-                bf[2, 1].Enabled = false;
-            }
-            if (bf[1, 1].Text.Equals("X") && bf[2, 1].Text.Equals("X"))
-            {
-                bf[0, 1].Text = symbol;
-                bf[0, 1].Enabled = false;
-            }
-            if (bf[0, 1].Text.Equals("X") && bf[2, 1].Text.Equals("X"))
-            {
-                bf[1, 1].Text = symbol;
-                bf[1, 1].Enabled = false;
-            }
-
-
-            if (bf[0, 2].Text.Equals("X") && bf[1, 2].Text.Equals("X"))
-            {
-                bf[2, 2].Text = symbol;
-                bf[2, 2].Enabled = false;
-            }
-            if (bf[1, 2].Text.Equals("X") && bf[2, 2].Text.Equals("X"))
-            {
-                bf[0, 2].Text = symbol;
-                bf[0, 2].Enabled = false;
-            }
-            if (bf[0, 2].Text.Equals("X") && bf[2, 2].Text.Equals("X"))
-            {
-                bf[1, 2].Text = symbol;
-                bf[1, 2].Enabled = false;
-            }
-
-
-
-            if (bf[0, 0].Text.Equals("X") && bf[1, 1].Text.Equals("X"))
-            {
-                bf[2, 2].Text = symbol;
-                bf[2, 2].Enabled = false;
-            }
-            if (bf[1, 1].Text.Equals("X") && bf[2, 2].Text.Equals("X"))
-            {
-                bf[0, 0].Text = symbol;
-                bf[0, 0].Enabled = false;
-            }
-            if (bf[0, 0].Text.Equals("X") && bf[2, 2].Text.Equals("X"))
-            {
-                bf[1, 1].Text = symbol;
-                bf[1, 1].Enabled = false;
-            }
-
-
-            if (bf[0, 2].Text.Equals("X") && bf[1, 1].Text.Equals("X"))
-            {
-                bf[2, 0].Text = symbol;
-                bf[2, 0].Enabled = false;
-            }
-            if (bf[1, 1].Text.Equals("X") && bf[2, 0].Text.Equals("X"))
-            {
-                bf[0, 2].Text = symbol;
-                bf[0, 2].Enabled = false;
-            }
-            if (bf[0, 2].Text.Equals("X") && bf[2, 0].Text.Equals("X"))
-            {
-                bf[1, 1].Text = symbol;
-                bf[1, 1].Enabled = false;
-            }
-
-
-            if (bf[0, 0].Text.Equals("X") && bf[1, 1].Text.Equals("X"))
-            {
-                bf[2, 2].Text = symbol;
-                bf[2, 2].Enabled = false;
-            }
-            if (bf[1, 1].Text.Equals("X") && bf[2, 2].Text.Equals("X"))
-            {
-                bf[0, 0].Text = symbol;
-                bf[0, 0].Enabled = false;
-            }
-            if (bf[0, 0].Text.Equals("X") && bf[2, 2].Text.Equals("X"))
-            {
-                bf[1, 1].Text = symbol;
-                bf[1, 1].Enabled = false;
-            }
-
-
-            /* percepcao O
-             
-             if (bf[0, 0].Text.Equals("O") && bf[0, 1].Text.Equals("O"))
-            {
-                bf[0, 2].Text = symbol;
-                bf[0, 2].Enabled = false;
-            }
-            if (bf[0, 1].Text.Equals("O") && bf[0, 2].Text.Equals("O"))
-            {
-                bf[0, 0].Text = symbol;
-                bf[0, 0].Enabled = false;
-            }
-            if (bf[0, 0].Text.Equals("O") && bf[0, 2].Text.Equals("O"))
-            {
-                bf[0, 1].Text = symbol;
-                bf[0, 1].Enabled = false;
-            }
-
-
-            if (bf[1, 0].Text.Equals("O") && bf[1, 1].Text.Equals("O"))
-            {
-                bf[1, 2].Text = symbol;
-                bf[1, 2].Enabled = false;
-            }
-            if (bf[1, 1].Text.Equals("O") && bf[1, 2].Text.Equals("O"))
-            {
-                bf[1, 0].Text = symbol;
-                bf[1, 0].Enabled = false;
-            }
-            if (bf[1, 0].Text.Equals("O") && bf[1, 2].Text.Equals("O"))
-            {
-            	bf[1, 1].Text = symbol;
-                bf[1, 1].Enabled = false;
-            }
-
-
-            if (bf[2, 0].Text.Equals("O") && bf[2, 1].Text.Equals("O"))
-            {
-                bf[2, 2].Text = symbol;
-                bf[2, 2].Enabled = false;
-            }
-            if (bf[2, 1].Text.Equals("O") && bf[2, 2].Text.Equals("O"))
-            {
-                bf[2, 0].Text = symbol;
-                bf[2, 0].Enabled = false;
-            }
-            if (bf[2, 0].Text.Equals("O") && bf[2, 2].Text.Equals("O"))
-            {
-                bf[2, 1].Text = symbol;
-                bf[2, 1].Enabled = false;
-            }
-
-
-            if (bf[0, 0].Text.Equals("O") && bf[1, 0].Text.Equals("O"))
-            {
-                bf[2, 0].Text = symbol;
-                bf[2, 0].Enabled = false;
-            }
-            if (bf[1, 0].Text.Equals("O") && bf[2, 0].Text.Equals("O"))
-            {
-                bf[0, 0].Text = symbol;
-                bf[0, 0].Enabled = false;
-            }
-            if (bf[0, 0].Text.Equals("O") && bf[2, 0].Text.Equals("O"))
-            {
-                bf[1, 0].Text = symbol;
-                bf[1, 0].Enabled = false;
-            }
-
-
-            if (bf[0, 1].Text.Equals("O") && bf[1, 1].Text.Equals("O"))
-            {
-               bf[2, 1].Text = symbol;
-               bf[2, 1].Enabled = false;
-            }
-            if (bf[1, 1].Text.Equals("O") && bf[2, 1].Text.Equals("O"))
-            {
-                bf[0, 1].Text = symbol;
-                bf[0, 1].Enabled = false;
-            }
-            if (bf[0, 1].Text.Equals("O") && bf[2, 1].Text.Equals("O"))
-            {
-                bf[1, 1].Text = symbol;
-                bf[1, 1].Enabled = false;
-            }
-
-
-            if (bf[0, 2].Text.Equals("O") && bf[1, 2].Text.Equals("O"))
-            {
-                bf[2, 2].Text = symbol;
-                bf[2, 2].Enabled = false;
-            }
-            if (bf[1, 2].Text.Equals("O") && bf[2, 2].Text.Equals("O"))
-            {
-                bf[0, 2].Text = symbol;
-                bf[0, 2].Enabled = false;
-            }
-            if (bf[0, 2].Text.Equals("O") && bf[2, 2].Text.Equals("O"))
-            {
-                bf[1, 2].Text = symbol;
-                bf[1, 2].Enabled = false;
-            }
-
-
-
-            if (bf[0, 0].Text.Equals("O") && bf[1, 1].Text.Equals("O"))
-            {
-                bf[2, 2].Text = symbol;
-                bf[2, 2].Enabled = false;
-            }
-            if (bf[1, 1].Text.Equals("O") && bf[2, 2].Text.Equals("O"))
-            {
-                bf[0, 0].Text = symbol;
-                bf[0, 0].Enabled = false;
-            }
-            if (bf[0, 0].Text.Equals("O") && bf[2, 2].Text.Equals("O"))
-            {
-                bf[1, 1].Text = symbol;
-                bf[1, 1].Enabled = false;
-            }
-            
-
-            if (bf[0, 2].Text.Equals("O") && bf[1, 1].Text.Equals("O"))
-            {
-                bf[2, 0].Text = symbol;
-                bf[2, 0].Enabled = false;
-            }
-            if (bf[1, 1].Text.Equals("O") && bf[2, 0].Text.Equals("O"))
-            {
-                bf[0, 2].Text = symbol;
-                bf[0, 2].Enabled = false;
-            }
-            if (bf[0, 2].Text.Equals("O") && bf[2, 0].Text.Equals("O"))
-            {
-                bf[1, 1].Text = symbol;
-                bf[1, 1].Enabled = false;
-            }
-
-
-            if (bf[0, 0].Text.Equals("O") && bf[1, 1].Text.Equals("O"))
-            {
-                bf[2, 2].Text = symbol;
-                bf[2, 2].Enabled = false;
-            }
-            if (bf[1, 1].Text.Equals("O") && bf[2, 2].Text.Equals("O"))
-            {
-                bf[0, 0].Text = symbol;
-                bf[0, 0].Enabled = false;
-            }
-            if (bf[0, 0].Text.Equals("O") && bf[2, 2].Text.Equals("O"))
-            {
-                bf[1, 1].Text = symbol;
-                bf[1, 1].Enabled = false;
-            }
- 
-              
-            */
-
-
-
-            /* Faz jogada aleatoria
-
-            else
-            {
-                possibleMovements[randomPosition].Text = symbol;
-                possibleMovements[randomPosition].Enabled = false;
-
-            }
-
-           */
-
-
         }
 
 
 
         // Verifica se houve vitória
-        public static bool CheckVictory(Control[,] bf)
+        public static bool CheckVictory(Control[,] bf, String symbol)
         {
-            if ((bf[0, 0].Text.Equals("X") && bf[0, 1].Text.Equals("X") && bf[0, 2].Text.Equals("X")) ||
-                (bf[1, 0].Text.Equals("X") && bf[1, 1].Text.Equals("X") && bf[1, 2].Text.Equals("X")) ||
-                (bf[2, 0].Text.Equals("X") && bf[2, 1].Text.Equals("X") && bf[2, 2].Text.Equals("X")) ||
-                (bf[0, 0].Text.Equals("X") && bf[1, 0].Text.Equals("X") && bf[2, 0].Text.Equals("X")) ||
-                (bf[0, 1].Text.Equals("X") && bf[1, 1].Text.Equals("X") && bf[2, 1].Text.Equals("X")) ||
-                (bf[0, 2].Text.Equals("X") && bf[1, 2].Text.Equals("X") && bf[2, 2].Text.Equals("X")) ||
-                (bf[0, 0].Text.Equals("X") && bf[1, 1].Text.Equals("X") && bf[2, 2].Text.Equals("X")) ||
-                (bf[0, 2].Text.Equals("X") && bf[1, 1].Text.Equals("X") && bf[2, 0].Text.Equals("X")))
-            {
-                return true;
-            }
-            else if ((bf[0, 0].Text.Equals("O") && bf[0, 1].Text.Equals("O") && bf[0, 2].Text.Equals("O")) ||
-              (bf[1, 0].Text.Equals("O") && bf[1, 1].Text.Equals("O") && bf[1, 2].Text.Equals("O")) ||
-              (bf[2, 0].Text.Equals("O") && bf[2, 1].Text.Equals("O") && bf[2, 2].Text.Equals("O")) ||
-              (bf[0, 0].Text.Equals("O") && bf[1, 0].Text.Equals("O") && bf[2, 0].Text.Equals("O")) ||
-              (bf[0, 1].Text.Equals("O") && bf[1, 1].Text.Equals("O") && bf[2, 1].Text.Equals("O")) ||
-              (bf[0, 2].Text.Equals("O") && bf[1, 2].Text.Equals("O") && bf[2, 2].Text.Equals("O")) ||
-              (bf[0, 0].Text.Equals("O") && bf[1, 1].Text.Equals("O") && bf[2, 2].Text.Equals("O")) ||
-              (bf[0, 2].Text.Equals("O") && bf[1, 1].Text.Equals("O") && bf[2, 0].Text.Equals("O")))
+            if ((bf[0, 0].Text.Equals(symbol) && bf[0, 1].Text.Equals(symbol) && bf[0, 2].Text.Equals(symbol)) ||
+                (bf[1, 0].Text.Equals(symbol) && bf[1, 1].Text.Equals(symbol) && bf[1, 2].Text.Equals(symbol)) ||
+                (bf[2, 0].Text.Equals(symbol) && bf[2, 1].Text.Equals(symbol) && bf[2, 2].Text.Equals(symbol)) ||
+                (bf[0, 0].Text.Equals(symbol) && bf[1, 0].Text.Equals(symbol) && bf[2, 0].Text.Equals(symbol)) ||
+                (bf[0, 1].Text.Equals(symbol) && bf[1, 1].Text.Equals(symbol) && bf[2, 1].Text.Equals(symbol)) ||
+                (bf[0, 2].Text.Equals(symbol) && bf[1, 2].Text.Equals(symbol) && bf[2, 2].Text.Equals(symbol)) ||
+                (bf[0, 0].Text.Equals(symbol) && bf[1, 1].Text.Equals(symbol) && bf[2, 2].Text.Equals(symbol)) ||
+                (bf[0, 2].Text.Equals(symbol) && bf[1, 1].Text.Equals(symbol) && bf[2, 0].Text.Equals(symbol)))
             {
                 return true;
             }
