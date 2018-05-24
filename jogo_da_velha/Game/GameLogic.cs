@@ -188,7 +188,7 @@ namespace jogo_da_velha.Game
                 }
 
                 // Se humano marcou 2 casas na mesma linha e a posicao de defesa esta livre, IA defende
-                if (countHumanSelection == 2 && freePosIAplay.Text.Equals(""))
+                if (countHumanSelection == 2 && freePosIAplay.Text.Equals("") && !freePosIAplay.Name.Equals(""))
                 {
                     freePosIAplay.Text = symbol;
                     freePosIAplay.Enabled = false;
@@ -198,6 +198,7 @@ namespace jogo_da_velha.Game
                 {
                     // Reinicia a contagem para a próxima linha
                     countHumanSelection = 0;
+                    freePosIAplay = new Control();
                 }
 
             }
@@ -227,7 +228,7 @@ namespace jogo_da_velha.Game
                 }
 
                 // Se humano marcou 2 casas na mesma coluna e a posicao de defesa esta livre, IA defende
-                if (countHumanSelection == 2 && freePosIAplay.Text.Equals(""))
+                if (countHumanSelection == 2 && freePosIAplay.Text.Equals("") && !freePosIAplay.Name.Equals(""))
                 {
                     freePosIAplay.Text = symbol;
                     freePosIAplay.Enabled = false;
@@ -237,6 +238,7 @@ namespace jogo_da_velha.Game
                 {
                     // Reinicia a contagem para a próxima linha
                     countHumanSelection = 0;
+                    freePosIAplay = new Control();
                 }
             }
 

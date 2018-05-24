@@ -210,7 +210,7 @@ namespace jogo_da_velha.Game
             
             
             // Human Victory
-            if (GameLogic.CheckVictory(battleMatrix, IAsymbol))
+            if (GameLogic.CheckVictory(battleMatrix, playerSymbol))
             {
 				OnGameTerminated(true);
 
