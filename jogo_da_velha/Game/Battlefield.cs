@@ -124,7 +124,7 @@ namespace jogo_da_velha.Game
 
 
 		// Game Events
-		private void OnGameStart(params Button[] gameButtons)
+		private void OnGameStart(bool enabled, params Button[] gameButtons)
 		{
             int bt = 0;
 
@@ -132,9 +132,16 @@ namespace jogo_da_velha.Game
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    battleMatrix[i, j] = gameButtons[bt];
-                    battleMatrix[i, j].Text = "";
-                    battleMatrix[i, j].Enabled = true;
+					if (enabled)
+					{
+						battleMatrix[i, j] = gameButtons[bt];
+						battleMatrix[i, j].Text = "";
+						battleMatrix[i, j].Enabled = true;
+					}
+					else
+					{
+						battleMatrix[i, j].Enabled = false;
+					}
 
                     bt++;
                 }
@@ -154,7 +161,7 @@ namespace jogo_da_velha.Game
                 IAsymbol = "X";
 			}
 
-			OnGameStart(btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
+			OnGameStart(true, btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
 		}
 
 		private void OnGameReset()
@@ -163,16 +170,12 @@ namespace jogo_da_velha.Game
 			{
 				OnSymbolSelect();
 			}
-
-			if (audioPlayerTemp != null)
+			else
 			{
-				audioPlayerTemp.Stop();
+				OnGameStart(false, btnEsqSup, btnMidSup, btnDirSup, btnEsqMid, btnMidMid, btnDirMid, btnEsqInf, btnMidInf, btnDirInf);
 			}
 
-			if (!audioPaused)
-			{
-				audioPlayer.Play();
-			}
+			OnPlayerResumed();
 		}
 
 		private void OnGameTerminated(bool isVictory)
@@ -212,6 +215,8 @@ namespace jogo_da_velha.Game
             // Human Victory
             if (GameLogic.CheckVictory(battleMatrix, playerSymbol))
             {
+				Label_Victories_Value.Text = (int.Parse(Label_Victories_Value.Text) + 1).ToString();
+
 				OnGameTerminated(true);
 
 				VictoryDialog.Create();
@@ -226,6 +231,8 @@ namespace jogo_da_velha.Game
             // CPU Victory
             if (GameLogic.CheckVictory(battleMatrix, IAsymbol))
             {
+				Label_Defeats_Value.Text = (int.Parse(Label_Defeats_Value.Text) + 1).ToString();
+
 				OnGameTerminated(false);
 
 				DefeatDialog.Create();
@@ -329,6 +336,19 @@ namespace jogo_da_velha.Game
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
+			}
+		}
+
+		private void OnPlayerResumed()
+		{
+			if (audioPlayerTemp != null)
+			{
+				audioPlayerTemp.Stop();
+			}
+
+			if (!audioPaused)
+			{
+				audioPlayer.Play();
 			}
 		}
 
