@@ -1,5 +1,5 @@
 ﻿/*
- *	MessageBoxHelper.cs
+ *	MessageBoxManager.cs
  *	Author: Alex C. Duma <http://www.codeproject.com/Articles/18399/Localizing-System-MessageBox>
  *  Description: Custom MessageBox Buttons.
  *	Date: 2016-07-23
@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
 namespace System.Windows.Forms
 {
-    class MessageBoxHelper
+    class MessageBoxManager
     {
         private delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
         private delegate bool EnumChildProc(IntPtr hWnd, IntPtr lParam);
@@ -96,7 +96,7 @@ namespace System.Windows.Forms
         public static string Yes = "&Yes"; // Yes text
         public static string No = "&No"; // No text
 
-        static MessageBoxHelper()
+        static MessageBoxManager()
         {
             hookProc = new HookProc(MessageBoxHookProc);
             enumProc = new EnumChildProc(MessageBoxEnumProc);

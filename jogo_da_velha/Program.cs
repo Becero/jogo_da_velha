@@ -1,8 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿/*
+ *	Program.cs
+ *	Author: Lucas Cota, Carlos Alberto, Caio Souza, Gabriel Werneck
+ *  Description: Main.
+ *	Date: 2018-05-16
+ *	Modified: 2018-05-16
+ */
+
+using System;
 using System.Windows.Forms;
+
+using jogo_da_velha.Game;
 
 namespace jogo_da_velha
 {
@@ -16,7 +23,7 @@ namespace jogo_da_velha
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Battlefield());
         }
     }
 }
